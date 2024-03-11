@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 
 import PromptCard from "./PromptCard";
+import Blogcard from "./Blogcard";
+import Homecard from "./Homecard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className='mt-16 prompt_layout'>
+    <div className='mt-16 flex flex-col w-full'>
       {data.map((post) => (
-        <PromptCard
+        <Homecard
           key={post._id}
           post={post}
           handleTagClick={handleTagClick}

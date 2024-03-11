@@ -1,10 +1,11 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
+import "@components/style.css";
 
-const Blogcard = ({post}) => {
+const Homecard = ({post}) => {
   return (
-    <div className="flex blogcard">
+<div className="blogcard flex my-5">
       <div style={{width:"50%",marginInline:"20px"}}>
       <img src={`https://res.cloudinary.com/dbtis6lsu/image/upload/v1705092727/${post.img}`}/>
       <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer creator-blog ' style={{marginTop:"30px"}}>
@@ -24,7 +25,6 @@ const Blogcard = ({post}) => {
             </p>
           </div>
         </div>
-
       </div>
       <div className="flex flex-col blogdiv">
       <Link href={`/post/${post._id}`}><h1 style={{fontSize:"20px",fontWeight:"700"}}>{post.title?post.title:post.prompt.slice(0,20)}</h1></Link>
@@ -36,4 +36,4 @@ const Blogcard = ({post}) => {
   )
 }
 
-export default Blogcard
+export default Homecard
