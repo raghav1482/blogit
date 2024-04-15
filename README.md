@@ -1,6 +1,6 @@
 # Blogit Blogging Platform
 
-Blogit is a web application designed to empower users to create and share their blogs easily. Whether you're a seasoned writer or just starting, Prompt provides a seamless platform for expressing your thoughts, stories, and ideas.
+Blogit is a web application designed to empower users to create and share their blogs easily. Whether you're a seasoned writer or just starting, Blogit provides a seamless platform for expressing your thoughts, stories, and ideas.
 
 ## Table of Contents
 
