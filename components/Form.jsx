@@ -1,10 +1,10 @@
+"use client";
 import Link from "next/link"
-import { useState, useRef, useMemo } from 'react';
+import {useRef} from 'react';
 import JoditEditor from 'jodit-react';
 
 const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
   const editor = useRef(null);
-  const [content, setContent] = useState('');
 
   return (
     <section className="max-w-full flex-start flex-col" style={{minWidth:"100"}}>
@@ -25,8 +25,6 @@ const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
           <JoditEditor
 			ref={editor}
 			value={post.prompt}
-			tabIndex={1} // tabIndex of textarea
-			onBlur={newContent => setPost({...post,prompt:newContent})} 
 			onChange={newContent => {setPost({...post,prompt:newContent})}}
 		/>
         </label>
