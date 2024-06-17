@@ -7,11 +7,14 @@ import "./style.css";
 function Discover() {
     const [allPosts, setAllPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const [loader,setLoad]=useState(false);
     const fetchPosts = async () => {
+        setLoad(true);
         const response = await fetch("/api/prompt");
         const data = await response.json();
     
         setAllPosts(data);
+        setLoad(false);
       };
     
       useEffect(() => {
@@ -22,7 +25,7 @@ function Discover() {
       }
   return (
     <>
-    <div className="trending mb-5">
+    {loader?<span className="loader"></span>:<><div className="trending mb-5">
         <h2 className="m-auto h2" style={{fontWeight:800}}>Trending</h2>
         <div className="trend-post flex">
             <img
@@ -62,7 +65,7 @@ function Discover() {
             <button className="black_btn" style={{borderRadius:"50%",padding:"10px"}} type="submit"><i class="fa fa-search"></i></button>
         </form>
         </div>
-    </div>
+    </div></>}
 
     </>
   )

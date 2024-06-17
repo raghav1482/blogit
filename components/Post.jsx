@@ -8,15 +8,18 @@ const Postcon = ({dat,id}) => {
   const { data: session } = useSession();
   const [comm,setComm]=useState({post:id,message:""});
   const [allcoms,setAllComs] = useState([]);
+  const [loader,setLoad]=useState(false);
   const handleComment = async()=>{
     try{
+      setLoad(true);
       await axios.post(`/api/prompt/comment/${id}`,{
               post:comm.post,
               comment:comm.message,
               userid:session?.user.id,
-          }).then((res)=>{setComm({post:id,message:""})});
+          }).then((res)=>{setComm({post:id,message:""});setLoad(false)});
   }catch(error){
       console.log(error);
+      setLoad(false);
   }
   }
 
@@ -33,8 +36,7 @@ const Postcon = ({dat,id}) => {
 
 
   return (
-    <>
-    <div className="flex flex-col">
+    <><div className="flex flex-col">
       <div className='post-con w-full flex flex-col '>
         <img src={dat?`https://res.cloudinary.com/dbtis6lsu/image/upload/v1705092727/${dat.img}`:""}/>
         <div className='post-head'>
@@ -54,7 +56,7 @@ const Postcon = ({dat,id}) => {
       <div className="all-comments">
         <h1 className="my-6" style={{fontWeight:"700",fontSize:"20px"}}>Comments</h1>
         <input type="text" className="comment-input" value={comm.message} onChange={(e) => {setComm((prev) => ({ ...prev, message: e.target.value }));}}/>
-        <button onClick={handleComment}>Comment</button>
+        <button onClick={handleComment}>{!loader?'Comment':"Wait...."}</button>
         {allcoms.map((element)=>{
           return <Comment img={element?.userid.image} username={element?.userid.username} comment={element.comment}/>;
         })
