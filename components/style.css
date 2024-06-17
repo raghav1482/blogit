@@ -32,7 +32,9 @@ font-weight: 700;
     border-radius: 50%;
 }
 .prompt_card{
-    max-width: 80%;
+    max-width: 80% !important;
+    overflow: hidden;
+    width: auto !important;
 }
 .prompt_card h1:hover{
     cursor: pointer;

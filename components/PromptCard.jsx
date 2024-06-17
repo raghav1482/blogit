@@ -32,7 +32,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
     <div className='prompt_card m-3'>
       <div className='flex justify-between items-start gap-5 flex-col'>
         <div>
-          <Link href={`/post/${post._id}`}><h1 style={{fontSize:"20px",fontWeight:"700"}}>{post.title?post.title:post.prompt.slice(0,20)}</h1></Link>
+          <Link href={`/post/${post._id}`}><h1 style={{fontSize:"20px",fontWeight:"700"}}>{post.title?post.title.slice(0,50):post.prompt.slice(0,50)} ...</h1></Link>
           <div className='copy_btn' onClick={handleCopy}>
             <Image
               src={
@@ -61,7 +61,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
             <h3 className='font-satoshi font-semibold text-gray-900'>
               {post.creator.username}
             </h3>
-            <p className='font-inter text-sm text-gray-500'>
+            <p className='font-inter text-sm text-gray-500' style={{fontSize:"8px !important"}}>
               {post.creator.email}
             </p>
           </div>
@@ -69,12 +69,13 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
       </div>
 
-      <p className='my-4 font-satoshi text-sm text-gray-700' style={{maxHeight:"300px",overflowY:"scroll"}} dangerouslySetInnerHTML={{ __html: post && post.prompt ? post.prompt: '' }}></p>
+      <p className='my-4 font-satoshi text-sm text-gray-700' style={{maxHeight:"300px",overflowY:"scroll"}} dangerouslySetInnerHTML={{ __html: post && post.prompt ? post.prompt.slice(0,100)+'...': '' }}></p>
+      <span><Link href={`/post/${post._id}`} className="blue_gradient">Read More</Link></span>
       <p
-        className='font-inter text-sm blue_gradient cursor-pointer'
+        className='font-inter my-5 text-sm blue_gradient cursor-pointer'
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
-        #{post.tag}
+        {post.tag.slice(0,50)}
       </p>
 
       {session?.user.id === post.creator._id && pathName === "/profile" && (

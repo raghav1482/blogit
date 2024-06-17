@@ -8,7 +8,8 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
       </h1>
       <p className='desc text-left'>{desc}</p>
 
-      <div className='mt-10 prompt_layout'>
+      <h3 className="blue_gradient text-left" style={{marginTop:"50px",fontSize:"33px",fontWeight:"800"}}>All Posts</h3>
+      <div className='mt-5 prompt_layout'>
         {data.map((post) => (
           <PromptCard
             key={post._id}
