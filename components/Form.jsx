@@ -1,11 +1,27 @@
 "use client";
 import Link from "next/link"
-import {useRef} from 'react';
-import JoditEditor from 'jodit-react';
+import {useEffect, useRef, useState} from 'react';
+import dynamic from 'next/dynamic'; 
 
+const isBrowser = typeof window !== undefined;
 const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
+  const [JoditEditor, setJoditEditor] = useState(null); 
   const editor = useRef(null);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Only import JoditEditor if window is defined (browser environment)
+      import('jodit-react').then(module => {
+        setJoditEditor(module.default);  // Set JoditEditor component from the module
+      }).catch(error => {
+        console.error('Failed to load JoditEditor', error);
+      });
+    }
+  }, []);
+
+  if (!JoditEditor) {
+    return <div>Loading editor...</div>;  // Render a loading state while waiting for JoditEditor to load
+  }
   return (
     <section className="max-w-full flex-start flex-col" style={{minWidth:"100"}}>
       <h1 className="head_text text-left">
