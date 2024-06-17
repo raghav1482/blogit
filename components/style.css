@@ -37,14 +37,21 @@ font-weight: 700;
 .prompt_card h1:hover{
     cursor: pointer;
 }
+
+
 .post-con img{
+    max-height: 400px !important;
     object-fit: cover;
     border-radius: 20px;
+    transition: all 0.25s ease-in-out;
+}
+.post-con img:hover{
+    scale: 1.01;
 }
 .post-head h2{
-    font-size: 25px;
+    font-size: 35px;
     margin: 20px 0;
-    font-weight: 600;
+    font-weight: 700;
 }
 .post-head img{
     border-radius: 50%;
@@ -122,6 +129,8 @@ font-weight: 700;
     height: max-content;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     transition: scale 0.2s ease-in-out;
+    max-height: 250px;
+    object-fit: cover;
 }
 .blogcard img:hover{
     scale: 1.015;

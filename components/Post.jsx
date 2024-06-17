@@ -51,12 +51,8 @@ const Postcon = ({dat,id}) => {
 
       </div>
       <div>
-      {/* <div className='likes'>
-        <button className="like"><i className="fa fa-thumbs-up"></i></button>
-        <button className="dislike"><i className="fa fa-thumbs-down"></i></button>
-      </div> */}
       <div className="all-comments">
-        <h1 className="my-3" style={{fontWeight:"700",fontSize:"20px"}}>Comments</h1>
+        <h1 className="my-6" style={{fontWeight:"700",fontSize:"20px"}}>Comments</h1>
         <input type="text" className="comment-input" value={comm.message} onChange={(e) => {setComm((prev) => ({ ...prev, message: e.target.value }));}}/>
         <button onClick={handleComment}>Comment</button>
         {allcoms.map((element)=>{

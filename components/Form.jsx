@@ -1,10 +1,10 @@
 import Link from "next/link"
-
+import { useState, useRef, useMemo } from 'react';
+import JoditEditor from 'jodit-react';
 
 const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
-
-
-
+  const editor = useRef(null);
+  const [content, setContent] = useState('');
 
   return (
     <section className="max-w-full flex-start flex-col" style={{minWidth:"100"}}>
@@ -21,7 +21,14 @@ const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
         </label>
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700 ">Your content here</span>
-          <textarea value={post.prompt} onChange={(e)=>{setPost({...post,prompt:e.target.value})}}  placeholder="Write your prompt here..." className="form_textarea"></textarea>
+          {/* <textarea value={post.prompt} onChange={(e)=>{setPost({...post,prompt:e.target.value})}}  placeholder="Write your prompt here..." className="form_textarea"></textarea> */}
+          <JoditEditor
+			ref={editor}
+			value={post.prompt}
+			tabIndex={1} // tabIndex of textarea
+			onBlur={newContent => setPost({...post,prompt:newContent})} 
+			onChange={newContent => {setPost({...post,prompt:newContent})}}
+		/>
         </label>
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700 ">Tag {" "} 
