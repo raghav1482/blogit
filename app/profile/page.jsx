@@ -4,9 +4,9 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Profile from "@components/Profile";
+import Profile2 from "@components/Profile2";
 
-const MyProfile = () => {
+const MyProfile = ({params}) => {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -47,13 +47,14 @@ const MyProfile = () => {
   };
 
   return (
-    <Profile
-      name='My'
-      desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
-      data={myPosts}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-    />
+    // <Profile
+    //   name='My'
+    //   desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
+    //   posts={myPosts}
+    //   handleEdit={handleEdit}
+    //   handleDelete={handleDelete}
+    // />
+    <Profile2 name={(myPosts.length>0)?myPosts[0].creator.username:""} desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination' posts={myPosts} handleEdit={handleEdit} handleDelete={handleDelete} id={params.id}/>
   );
 };
 

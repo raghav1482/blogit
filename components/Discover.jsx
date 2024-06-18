@@ -48,7 +48,7 @@ function Discover() {
     <div className="w-full flex flex-row mt-5 mb-5" style={{justifyContent:"space-between"}}>
     {/* Posts */}
         <div className="flex-1 desc-post">
-        {allPosts.map((post)=>{return <Blogcard post={post} />})}
+        {allPosts.map((post,index)=>{return <Blogcard key={index} post={post} />})}
         </div>
 
     {/* Search and other  */}
@@ -62,7 +62,7 @@ function Discover() {
             value={searchText}
             onChange={(e)=>{setSearchText(e.target.value)}}
             />
-            <button className="black_btn" style={{borderRadius:"50%",padding:"10px"}} type="submit"><i class="fa fa-search"></i></button>
+            <button className="black_btn" style={{borderRadius:"50%",padding:"10px"}} type="submit"><i className="fa fa-search"></i></button>
         </form>
         </div>
     </div></>}

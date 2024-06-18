@@ -1,0 +1,119 @@
+.channel-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+}
+.ch-banner{
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 300px;
+    object-fit: cover;
+    overflow: hidden;
+    position: relative;
+}
+.ch-banner img{
+    width: 100%;
+    max-height: 300px;
+    transition: all 0.25s ease-in-out;
+    object-fit: cover;
+}
+.ch-banner label{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    font-size: 25px;
+    z-index: 997;
+    color: rgb(216, 212, 212);
+}
+.ch-banner label:hover{
+    cursor: pointer;
+}
+.ch-banner img:hover{
+    scale: 1.01;
+}
+.loading{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.475);
+    z-index: 998;
+    position: absolute;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ch-strip{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.ch-strip img{
+    border-radius: 50%;
+    width: 60px;
+}
+
+.ch-strip h3{
+    font-size: 25px;
+    font-weight: 700;
+    margin: 10px;
+}
+
+.ch-posts{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader2 {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+  }
+  .loader2::before , .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    animation: prixClipFix 2s linear infinite ;
+  }
+  .loader2::after{
+    transform: rotate3d(90, 90, 0, 180deg );
+    border-color: #00bfff;
+  }
+
+  @keyframes rotate {
+    0%   {transform: rotate(0deg)}
+    100%   {transform: rotate(360deg)}
+  }
+
+  @keyframes prixClipFix {
+      0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+      50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+      75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+  }
+
+@media screen and (max-width:500px) {
+    .ch-strip h3{
+        font-size: 15px;
+    }
+    .ch-strip img{
+        width: 40px;
+    }
+}
