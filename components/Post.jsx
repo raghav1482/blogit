@@ -49,7 +49,7 @@ const Postcon = ({dat,id}) => {
           </div>
         </span>
         </div>
-        <p dangerouslySetInnerHTML={{ __html: dat && dat.prompt ? dat.prompt: '' }}></p>
+        <p dangerouslySetInnerHTML={{ __html: dat && dat.prompt ? dat.prompt: '' }} className="post-content"></p>
 
       </div>
       <div>

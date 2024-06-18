@@ -31,10 +31,10 @@ font-weight: 700;
     height: 40px;
     border-radius: 50%;
 }
-.prompt_card{
-    max-width:80% !important;
+.prompt_card .m-3{
+    max-width:300px !important;
     overflow: hidden;
-    width: max-content !important;min-width: 200px;
+    min-width: 200px;
 }
 .prompt_card h1:hover{
     cursor: pointer;
@@ -49,6 +49,10 @@ font-weight: 700;
 }
 .post-con img:hover{
     scale: 1.01;
+}
+.post-content img{
+    width: 500px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .post-head h2{
     font-size: 35px;
