@@ -29,7 +29,7 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt?page=1&limit=3");
+    const response = await fetch("/api/prompt?page=1&limit=0");
     const data = await response.json();
 
     setAllPosts(data?data.prompts:[]);

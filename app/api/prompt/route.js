@@ -9,7 +9,7 @@ export const GET = async (req) => {
         // Extract query parameters
         const url = new URL(req.url);
         const page = parseInt(url.searchParams.get('page')) ; // Default to page 1 if not provided
-        const limit = parseInt(url.searchParams.get('limit')) || 3; // Default to 10 prompts per page if not provided
+        const limit = parseInt(url.searchParams.get('limit')); // Default to 10 prompts per page if not provided
 
         // Calculate the number of documents to skip
         const skip = (page - 1) * limit;
