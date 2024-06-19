@@ -161,6 +161,23 @@ font-weight: 700;
     margin-top:10px ;
 }
 
+.srch_res{
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    text-wrap: wrap;
+    padding: 10px;
+}
+.srch_res a{
+    margin: 10px;
+    font-weight: 600;
+    color: rgb(2, 88, 142);
+}
+.srch_res a:hover{
+    color: rgb(95, 82, 0);
+}
 .loader {
     animation: rotate 1s infinite;
     height: 50px;

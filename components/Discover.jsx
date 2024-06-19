@@ -2,13 +2,15 @@
 import { useEffect, useState, useCallback } from "react";
 import Blogcard from "./Blogcard";
 import "./style.css";
-
+import axios from "axios";
+import Link from "next/link";
 function Discover() {
     const [allPosts, setAllPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [loader, setLoader] = useState(false);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(2);
+    const [search_result , setSearchRes] = useState([]);
 
     const initialFetchPosts = async () => {
         try {
@@ -49,8 +51,14 @@ function Discover() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Implement search functionality here
+        try {
+            const response = await axios.post('/api/filter', { search_text: searchText });
+            setSearchRes(response.data);
+        } catch (e) {
+            console.error(e);
+        }
     };
+    
 
     const handleScroll = useCallback(() => {
         if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - 1) {
@@ -102,11 +110,11 @@ function Discover() {
                         </div>
 
                         {/* Search and other */}
-                        <div className="trend_srch">
+                        <div className="trend_srch mx-3">
                             <form className='relative w-full flex-center' onSubmit={handleSubmit}>
                                 <input
                                     type='text'
-                                    placeholder='Search for a tag or a username'
+                                    placeholder='Search for a blog'
                                     required
                                     className='search_input peer'
                                     value={searchText}
@@ -116,6 +124,11 @@ function Discover() {
                                     <i className="fa fa-search"></i>
                                 </button>
                             </form>
+                            <div className="srch_res">
+                            {search_result.map((result,index)=>{
+                              return <Link href={`/post/${result._id}`}>{result.title}</Link>  
+                            })}
+                            </div>
                         </div>
                     </div>
                 </>
