@@ -9,12 +9,17 @@ function Discover() {
     const [searchText, setSearchText] = useState("");
     const [loader,setLoad]=useState(false);
     const fetchPosts = async () => {
-        setLoad(true);
-        const response = await fetch("/api/prompt");
-        const data = await response.json();
-    
-        setAllPosts(data);
-        setLoad(false);
+        try{
+
+            setLoad(true);
+            const response = await fetch("/api/prompt");
+            const data = await response.json();
+            setAllPosts(data);
+            setLoad(false);
+        }catch(e){
+            console.log(e);
+            setLoad(false);
+        }
       };
     
       useEffect(() => {
