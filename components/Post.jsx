@@ -42,7 +42,7 @@ const Postcon = ({dat,id}) => {
   return (
     <><div className="flex flex-col">
       <div className='post-con w-full flex flex-col '>
-        <img src={dat?`https://res.cloudinary.com/dbtis6lsu/image/upload/v1705092727/${dat.img}`:""}/>
+        <img src={dat?`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${dat.img}`:""}/>
         <div className='post-head'>
         <h2>{dat?dat.title?dat.title:"":""}</h2>
         <span className='flex flex-row' style={{alignItems:"center"}}>

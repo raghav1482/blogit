@@ -7,7 +7,7 @@ const Homecard = ({post}) => {
   return (
 <div className="blogcard flex my-5">
       <div style={{width:"50%",marginInline:"20px"}}>
-      <img src={`https://res.cloudinary.com/dbtis6lsu/image/upload/v1705092727/${post.img}`}/>
+      <img src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${post.img}`}/>
       <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer creator-blog ' style={{marginTop:"30px"}}>
           <Image
             src={post.creator.image}

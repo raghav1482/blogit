@@ -47,7 +47,7 @@ useEffect(() => {
   if (previewsrc) {
     setImageSrc(previewsrc);
   } else if (posts.length > 0) {
-    const url = `https://res.cloudinary.com/dbtis6lsu/image/upload/v1718713029/${posts[0].creator.banner}`;
+    const url = `https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1718713029/${posts[0].creator.banner}`;
     fetch(url)
       .then(response => {
         if (response.ok) {

@@ -85,7 +85,7 @@ function Discover() {
                         <h2 className="m-auto h2" style={{ fontWeight: 800 }}>Trending</h2>
                         <div className="trend-post flex">
                             <img
-                                src={`https://res.cloudinary.com/dbtis6lsu/image/upload/v1705092727/${(allPosts.length > 0) ? allPosts[0].img : ""}`}
+                                src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${(allPosts.length > 0) ? allPosts[0].img : ""}`}
                                 alt='user_image'
                             />
                             <div className="trend-dat">

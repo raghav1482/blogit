@@ -71,7 +71,7 @@ const CreatePrompt=()=>{
 
     return (
     <>
-    <div className="flex flex-row" style={{justifyContent:"space-around",flexWrap:"wrap-reverse"}}>
+    <div className="flex flex-row" style={{justifyContent:"space-around",flexWrap:"wrap-reverse",minHeight:"120vh"}}>
         <Form type="Create" post={post} setPost={setPost} submitting={submitting} uploading={uploading} handleSubmit={createPrompt}/>
         <div className="flex flex-col" style={{minWidth:"200px",maxWidth:"400px",margin: "auto 30px",alignItems:"center"}}>
         <input type="file" id="file-upload" onChange={handleChange}  accept=".jpg, .jpeg, .png" style={{display:"none"}}/>

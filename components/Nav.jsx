@@ -19,7 +19,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className='flex-between w-full mb-16 pt-3'>
+    <nav className='flex-between w-full mb-16 pt-3' style={{zIndex:"999"}}>
       <Link href='/' className='flex gap-2 flex-center'>
         <Image
           src='/assets/images/logo.png'
@@ -32,7 +32,7 @@ const Nav = () => {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className='sm:flex hidden'>
+      <div className='sm:flex hidden' style={{zIndex:"999"}}>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
             <Link href='/discover' className='black_btn'>
@@ -79,7 +79,7 @@ const Nav = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div className='sm:hidden flex relative'>
+      <div className='sm:hidden flex relative' style={{zIndex:"999"}}>
         {session?.user ? (
           <div className='flex'>
             <Image
