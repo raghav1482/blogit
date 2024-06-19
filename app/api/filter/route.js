@@ -9,7 +9,6 @@ export const POST = async (request) => {
         const prompts = await Prompt.find({
             $or: [
                 { title: { $regex: regex } },
-                { prompt: { $regex: regex } },
                 { tag: { $regex: regex } }
             ]
         });
