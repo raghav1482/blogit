@@ -11,12 +11,16 @@ const Postcon = ({dat,id}) => {
   const [loader,setLoad]=useState(false);
   const handleComment = async()=>{
     try{
-      setLoad(true);
-      await axios.post(`/api/prompt/comment/${id}`,{
-              post:comm.post,
-              comment:comm.message,
-              userid:session?.user.id,
-          }).then((res)=>{setComm({post:id,message:""});setLoad(false)});
+      if(session?.user.id){
+        setLoad(true);
+        await axios.post(`/api/prompt/comment/${id}`,{
+                post:comm.post,
+                comment:comm.message,
+                userid:session?.user.id,
+            }).then((res)=>{setComm({post:id,message:""});setLoad(false)});
+      }else{
+        alert("Please Sign in!!");
+      }
   }catch(error){
       console.log(error);
       setLoad(false);
