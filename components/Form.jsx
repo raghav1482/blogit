@@ -20,7 +20,7 @@ const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
   }, []);
 
   if (!JoditEditor) {
-    return <div>Loading editor...</div>;  // Render a loading state while waiting for JoditEditor to load
+    return <></>;  // Render a loading state while waiting for JoditEditor to load
   }
   return (
     <section className="max-w-full flex-start flex-col" style={{minWidth:"100"}}>
