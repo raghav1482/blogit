@@ -190,6 +190,8 @@ body {
     height: 50px;
     width: 50px;
     margin-top: 30%;
+    position: absolute;
+    bottom: 50%;
 }
 .loader:before,
 .loader:after {

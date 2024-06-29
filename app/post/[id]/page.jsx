@@ -19,7 +19,7 @@ const Post = ({ params }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{minHeight:'100vh'}}>
       {loader?<span className="loader"></span>:<Postcon dat={post} id={params.id}/>}
     </div>
   );
