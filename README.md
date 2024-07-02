@@ -1,6 +1,7 @@
 # Blogit Blogging Platform
 
 Blogit is a web application designed to empower users to create and share their blogs easily. Whether you're a seasoned writer or just starting, Blogit provides a seamless platform for expressing your thoughts, stories, and ideas.
+![BLOG](https://github.com/raghav1482/blogit/assets/98442936/ac33d09c-19fe-4ab5-ba3e-001e7081b79b)
 
 ## Table of Contents
 
