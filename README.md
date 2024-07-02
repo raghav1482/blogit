@@ -15,7 +15,7 @@ Blogit is a web application designed to empower users to create and share their 
 
 ## Introduction
 
-Prompt is built to simplify the process of creating and sharing blogs. It offers a user-friendly interface for writing, formatting, and publishing articles. With integrated features for user authentication and content management, Prompt ensures a smooth blogging experience for both writers and readers.
+Blogit is built to simplify the process of creating and sharing blogs. It offers a user-friendly interface for writing, formatting, and publishing articles. With integrated features for user authentication and content management, Prompt ensures a smooth blogging experience for both writers and readers.
 
 ## Features
 
