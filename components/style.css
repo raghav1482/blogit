@@ -41,6 +41,13 @@ body {
     overflow: hidden;
     min-width: 200px;
 }
+.prompt_card{
+    padding: 0 !important;
+    border: none;
+}
+.prompt_card h1{
+    font-size: 15px !important;
+}
 .prompt_card h1:hover {
     cursor: pointer;
 }
@@ -310,4 +317,5 @@ body {
         font-size: 15px;
     }
 }
+
 

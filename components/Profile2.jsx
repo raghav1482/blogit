@@ -1,8 +1,10 @@
 import PromptCard from "./PromptCard";
 import "../styles/profile.css"
+import "./style.css"
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios"
+import Slider from "./Slider";
 const Profile2 = ({ name, desc,posts, handleEdit, handleDelete,id}) => {
   const [previewsrc , setPreviewSource] =useState();
   const [uploading ,setUploading]=useState(false);
@@ -24,6 +26,7 @@ const previewFile = (file)=>{
       uploadImg(reader.result);
   }
 }
+const [followers,setFollowers] = useState(0);
 const deleteOld = async(id)=>{
   await axios.post("/api/prompt/image/delete",{id:id}).then((result)=>{console.log("Old deleted successfully");}).catch(e=>{console.log(e)});
 }
@@ -43,6 +46,7 @@ const uploadImg =async(base64EncodedImage)=>{
 
 
 useEffect(() => {
+  setFollowers((Math.random()*100).toFixed(1));
   const defaultBanner = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSztcJ7V67eytjYO3XYTwb_CP4zJlhCRzEWmg&s";
   if (previewsrc) {
     setImageSrc(previewsrc);
@@ -83,17 +87,42 @@ useEffect(() => {
         <div className="ch-strip">
             <div style={{display:"flex"}}>
             <img src={(posts.length>0)?posts[0].creator.image:""}/>
-            <h3 className="blue_gradient">{name}</h3>
+            <div>
+            <h3 className="blue_gradient" style={{fontSize:"17px",marginBlock:"0"}}>{name}</h3>
+            <p style={{marginInline:"10px"}}>{followers||0}k followers</p>
             </div>
+            </div>
+            <button className="outline_btn">Follow</button>
         </div>
-        <div className="ch-posts">
-        {posts.map((post,index)=>(
-        <PromptCard
-            key={post._id}
-            post={post}
-            handleEdit={() => handleEdit && handleEdit(post)}
-            handleDelete={() => handleDelete && handleDelete(post)}
-          />))}
+        <div className="trend-post flex">
+                            <img
+                                src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${(posts.length > 0) ? posts[0].img : ""}`}
+                                alt='user_image'
+                            />
+                            <div className="trend-dat">
+                                <h2 style={{fontSize:"20px"}}>{(posts.length > 0) ? posts[0].title.slice(0, 36) + '...' : ""}</h2>
+                                <p dangerouslySetInnerHTML={{ __html: (posts.length > 0) ? posts[0].prompt.slice(0, 150) + '...' : "" }}></p>
+                                <div className="creator-trend flex">
+                                    <img src={(posts.length > 0) ? posts[0].creator.image : ""} />
+                                    <div style={{ lineHeight: "15px" }}>
+                                        <h1>{(posts.length > 0) ? posts[0].creator.username : ""}</h1>
+                                        <p>{(posts.length > 0) ? posts[0].creator.email : ""}</p>
+                                    </div>
+                                </div>
+                            </div>
+          </div>
+          <div className="prof-sections" style={{width:"100%"}}>
+            <h3 style={{fontSize:"23px",padding:"0",marginTop:"2rem",fontWeight:"600",marginLeft:"40px"}}>Popular</h3>
+          <Slider data={posts} handleEdit={handleEdit} handleDelete={handleDelete}/>
+          </div>
+          <div className="prof-sections" style={{width:"100%"}}>
+            <h3 style={{fontSize:"23px",padding:"0",marginTop:"2rem",fontWeight:"600",marginLeft:"40px"}}>Recent</h3>
+          <Slider data={posts} handleEdit={handleEdit} handleDelete={handleDelete}/>
+          </div>
+          <div className="prof-sections" style={{width:"100%"}}>
+            <h3 style={{fontSize:"23px",padding:"0",marginTop:"2rem",fontWeight:"600",marginLeft:"40px"}}>Featured</h3>
+          <Slider data={posts} handleEdit={handleEdit} handleDelete={handleDelete}/>
+          
           </div>
     </section>
   );

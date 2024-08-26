@@ -1,0 +1,48 @@
+.slider{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: max-content;
+      overflow: hidden;
+      width: 95%;
+      margin: 10px auto;
+      position: relative;
+    }
+    .slider button:hover{
+      background-color: white !important;
+      border: none !important;
+    }
+    .slider button{
+      box-shadow: none;
+      background-color: white;
+      
+    }
+    .slider button:first-child{
+      position: absolute;
+      left: 10px;
+      z-index: 999;
+    }
+    .slider button:last-child{
+      position: absolute;
+      right: 10px;
+      z-index: 999;
+    }
+
+    .iWchow:hover:enabled, .iWchow:focus:enabled{
+      color: black !important;
+      box-shadow: none !important;
+    }
+    .rec.rec-dot {
+      display: none;
+    }
+    .rec.rec-dot_active {
+      display: none;
+    }
+    @media screen and (max-width:770px) {
+      .slider{
+        align-items: center;
+      }
+      .slider h1{
+        margin-left: 0;
+      }
+    }
