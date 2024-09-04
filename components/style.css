@@ -2,13 +2,23 @@
 body {
     margin-bottom: 0px;
 }
-
+.trend-post{
+    width: 100%;
+    height: max-content;
+}
 /* Trend Post Styles */
 .trend-post img {
     width: 40%;
     height: 30%;
     border-radius: 20px;
     margin-right: 20px;
+}
+.trend-post .trend-div {
+    width: 40%;
+    height: 250px;
+    border-radius: 20px;
+    margin-right: 20px;
+    background-color: grey;
 }
 .trend-dat h2 {
     font-size: 30px;
@@ -266,6 +276,10 @@ body {
     }
     .trend-post img {
         width: 100%;
+    }
+    .trend-post .trend-div {
+        width: 100%;
+        height: 160px !important;
     }
     .blogdiv {
         width: 100%;

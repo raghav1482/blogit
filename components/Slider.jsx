@@ -15,13 +15,19 @@ export default function Slider(props) {
     // Shuffle the data array
     const shuffledData = [...props.data].sort(() => 0.5 - Math.random());
 
+    const dataToShow = shuffledData.length > 0 ? shuffledData:[];
+
     return (
         <div className="slider">
             <Carousel breakPoints={breakPoints}>
-                {shuffledData.map(post => (
+                {dataToShow.map(post => (
                     <PromptCard
                         key={post._id}
+                        creator={post.creator}
+                        img={post.img}
                         post={post}
+                        tag={post.tag}
+                        title={post.title}
                         handleEdit={() => props.handleEdit && props.handleEdit(post)}
                         handleDelete={() => props.handleDelete && props.handleDelete(post)}
                     />
