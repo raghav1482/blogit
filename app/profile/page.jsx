@@ -47,13 +47,6 @@ const MyProfile = ({params}) => {
   };
 
   return (
-    // <Profile
-    //   name='My'
-    //   desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
-    //   posts={myPosts}
-    //   handleEdit={handleEdit}
-    //   handleDelete={handleDelete}
-    // />
     <Profile2 name={(myPosts.length>0)?myPosts[0].creator.username:""} desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination' posts={myPosts} handleEdit={handleEdit} handleDelete={handleDelete} id={params.id}/>
   );
 };

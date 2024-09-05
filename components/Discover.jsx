@@ -1,16 +1,17 @@
-"use client"
+"use client";
 import { useEffect, useState, useCallback } from "react";
 import Blogcard from "./Blogcard";
 import "./style.css";
 import axios from "axios";
 import Link from "next/link";
+
 function Discover() {
     const [allPosts, setAllPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [loader, setLoader] = useState(false);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(2);
-    const [search_result , setSearchRes] = useState([]);
+    const [search_result, setSearchRes] = useState([]);
 
     const initialFetchPosts = async () => {
         try {
@@ -58,7 +59,6 @@ function Discover() {
             console.error(e);
         }
     };
-    
 
     const handleScroll = useCallback(() => {
         if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - 1) {
@@ -77,7 +77,7 @@ function Discover() {
 
     return (
         <>
-            {loader && page === 1 ? (
+            {loader && allPosts.length === 0 ? (
                 <span className="loader"></span>
             ) : (
                 <>
@@ -125,9 +125,9 @@ function Discover() {
                                 </button>
                             </form>
                             <div className="srch_res">
-                            {search_result.map((result,index)=>{
-                              return <Link href={`/post/${result._id}`}>{result.title}</Link>  
-                            })}
+                                {search_result.map((result, index) => {
+                                    return <Link key={index} href={`/post/${result._id}`}>{result.title}</Link>;
+                                })}
                             </div>
                         </div>
                     </div>
