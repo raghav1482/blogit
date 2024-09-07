@@ -72,6 +72,14 @@ body {
 .post-con img:hover {
     scale: 1.01;
 }
+.post-content {
+    width: 70%;
+}
+.post-content p, 
+.post-content span, 
+.post-content li {
+    font-size: 1rem !important;
+}
 .post-content img {
     width: 500px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
@@ -223,6 +231,17 @@ body {
 
 /* Responsive Styles */
 @media screen and (max-width: 600px) {
+    .post-head h2{
+        font-size: 1.2rem;
+    }
+    .post-content{
+        width: 100%;
+    }
+    .post-content p, 
+    .post-content span, 
+    .post-content li {
+        font-size: 1rem !important;
+    }
     .trend-post {
         flex-wrap: wrap;
     }
@@ -282,6 +301,9 @@ body {
     }
 }
 @media screen and (max-width: 1000px) and (min-width: 600px) {
+    .post-head h2{
+        font-size: 1.6rem;
+    }
     .trend-dat h2 {
         font-size: 20px;
     }
