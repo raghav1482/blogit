@@ -133,7 +133,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
   {name}
 </h3>
 
-            <p style={{ marginInline: "10px" }}>{followers || 0}k followers</p>
+            {posts[0]?.creator?<p style={{ marginInline: "10px" }}>{followers || 0}k followers</p>:<p style={{ margin: "10px",backgroundColor:"grey",width:"100px",height:"10px",borderRadius:"10px" }}></p>}
           </div>
         </div>
         <button className="outline_btn">Follow</button>
@@ -148,13 +148,20 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
           <div className="trend-div"> </div> // Placeholder text or content
         )}
         <div className="trend-dat">
-          <h2 style={{ fontSize: "20px" }}>{(posts.length > 0) ? posts[0].title.slice(0, 36) + '...' : ""}</h2>
-          <p dangerouslySetInnerHTML={{ __html: (posts.length > 0) ? posts[0].prompt.slice(0, 150) + '...' : "" }}></p>
+          {(posts.length > 0)?<h2 style={{ fontSize: "20px" }}>{(posts.length > 0) ? posts[0].title.slice(0, 36) + '...' : ""}</h2>:
+          <h2 style={{ fontSize: "20px" ,backgroundColor:"grey",width:"300px",height:"20px",borderRadius:"10px"}}></h2>
+          }
+          {(posts.length > 0)?<p dangerouslySetInnerHTML={{ __html: (posts.length > 0) ? posts[0].prompt.slice(0, 150) + '...' : "" }}></p>:
+          <>
+          <p style={{width:"250px",height:"15px",backgroundColor:"grey",marginTop:"10px",borderRadius:"10px"}}></p>
+          <p style={{width:"250px",height:"15px",backgroundColor:"grey",marginTop:"10px",borderRadius:"10px"}}></p>
+          <p style={{width:"250px",height:"15px",backgroundColor:"grey",marginTop:"10px",borderRadius:"10px"}}></p>
+          </>}
           <div className="creator-trend flex">
             {posts.length > 0 && posts[0].creator.image ? (
               <img src={posts[0].creator.image} alt="Creator Image" />
             ) : (
-              <div className="mock-user"></div>
+              <div className="mock-user" style={{width:"40px !important",height:"40px !important"}}></div>
             )}
             <div style={{ lineHeight: "15px" }}>
               <h1>{(posts.length > 0) ? posts[0].creator.username : ""}</h1>

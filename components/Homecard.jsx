@@ -14,7 +14,7 @@ const Homecard = ({post}) => {
             alt='user_image'
             width={100}
             height={100}
-            style={{borderRadius:"50%" , width:"40px"}}
+            style={{borderRadius:"50%" , width:"40px",height:"40px"}}
           />
           <div className='flex flex-col'>
             <h3 className='font-satoshi font-semibold text-gray-900'>
