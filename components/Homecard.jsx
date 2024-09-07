@@ -16,6 +16,7 @@ const Homecard = ({post}) => {
             height={100}
             style={{borderRadius:"50%" , width:"40px",height:"40px"}}
           />
+          <Link href={`/profile/${post.creator._id}`}>
           <div className='flex flex-col'>
             <h3 className='font-satoshi font-semibold text-gray-900'>
               {post.creator.username}
@@ -24,6 +25,7 @@ const Homecard = ({post}) => {
               {post.creator.email}
             </p>
           </div>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col blogdiv">
