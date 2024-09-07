@@ -46,11 +46,11 @@ const PromptCard = ({ post = {}, handleEdit, handleDelete, handleTagClick }) => 
             }}
           />
         )}
-        {isLoading && <div style={{backgroundColor:"grey",width:"300px",height:"150px",borderRadius:"10px"}}></div>}
+        {isLoading && <div style={{width:"300px",height:"150px",borderRadius:"10px"}} className="mock"></div>}
         <div>
         <Link href={`/post/${post._id}`}>
   {post.title === "Loading..." ? (
-    <h1 style={{ fontWeight: "700", padding: "5px", backgroundColor: "grey",width:"200px",borderRadius:"10px",height:"10px" }}>
+    <h1 style={{ fontWeight: "700", padding: "5px",width:"200px",borderRadius:"10px",height:"10px" }} className="mock">
       &nbsp; {/* Empty content but still occupies space */}
     </h1>
   ) : (
@@ -62,7 +62,7 @@ const PromptCard = ({ post = {}, handleEdit, handleDelete, handleTagClick }) => 
 
         </div>
       </div>
-      {post.title != "Loading..."?<p className='font-inter my-1 text-sm cursor-pointer'>{views ? `${views} views . 4 months ago` : 'Loading views...'}</p>:<p className='font-inter my-1 text-sm cursor-pointer' style={{ fontWeight: "700", padding: "5px", backgroundColor: "grey",width:"200px",borderRadius:"10px",height:"5px" }}></p>}
+      {post.title != "Loading..."?<p className='font-inter my-1 text-sm cursor-pointer'>{views ? `${views} views . 4 months ago` : 'Loading views...'}</p>:<p className='font-inter my-1 text-sm cursor-pointer' style={{ fontWeight: "700", padding: "5px",width:"200px",borderRadius:"10px",height:"5px" }}></p>}
 
       {session?.user?.id === post?.creator?._id && pathName === "/profile" && (
         <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>

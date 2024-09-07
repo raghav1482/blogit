@@ -30,6 +30,24 @@ background-color: grey;
     object-fit: cover;
 }
 
+.mock {
+    background-color: grey;
+    animation: mockanime 1s infinite;
+}
+
+@keyframes mockanime {
+    0% {
+        background-color: grey;
+    }
+    50% {
+        background-color: rgb(183, 181, 181);
+    }
+    100% {
+        background-color: grey;
+    }
+}
+
+
 .ch-banner label{
     position: absolute;
     bottom: 0;

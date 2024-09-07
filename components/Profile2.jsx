@@ -119,21 +119,21 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
         {id === undefined ? <label htmlFor="banner-img"><i className="fa fa-camera"></i></label> : ""}
         {uploading && <div className="loading"><span className="loader2"></span></div>}
         <input type="file" id="banner-img" onChange={handleChange} accept=".jpg, .jpeg, .png" style={{ display: "none" }} />
-        <div className="img-div">{(imageSrc === null) ? <></>:<img src={imageSrc} />  }</div>
+        <div className="img-div mock">{(imageSrc === null) ? <></>:<img src={imageSrc} />  }</div>
       </div>
       <div className="ch-strip">
         <div style={{ display: "flex" }}>
           {posts.length > 0 && posts[0].creator.image ? (
             <img src={posts[0].creator.image} alt="Creator Image" />
           ) : (
-            <div className="mock-user"></div>
+            <div className="mock-user mock"></div>
           )}
           <div>
-          <h3 className={`${name.length > 0 ? "blue_gradient" : "h3-mock"}`} style={{ fontSize: "17px", marginBlock: "0" }}>
+          <h3 className={`${name.length > 0 ? "blue_gradient mock" : "h3-mock mock"}`} style={{ fontSize: "17px", marginBlock: "0" }}>
   {name}
 </h3>
 
-            {posts[0]?.creator?<p style={{ marginInline: "10px" }}>{followers || 0}k followers</p>:<p style={{ margin: "10px",backgroundColor:"grey",width:"100px",height:"10px",borderRadius:"10px" }}></p>}
+            {posts[0]?.creator?<p style={{ marginInline: "10px" }}>{followers || 0}k followers</p>:<p style={{ margin: "10px",width:"100px",height:"10px",borderRadius:"10px" }} className="mock"></p>}
           </div>
         </div>
         <button className="outline_btn">Follow</button>
@@ -145,23 +145,23 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
             alt='user_image'
           />
         ) : (
-          <div className="trend-div"> </div> // Placeholder text or content
+          <div className="trend-div mock"> </div> // Placeholder text or content
         )}
         <div className="trend-dat">
           {(posts.length > 0)?<h2 style={{ fontSize: "20px" }}>{(posts.length > 0) ? posts[0].title.slice(0, 36) + '...' : ""}</h2>:
-          <h2 style={{ fontSize: "20px" ,backgroundColor:"grey",width:"300px",height:"20px",borderRadius:"10px"}}></h2>
+          <h2 style={{ fontSize: "20px" ,width:"300px",height:"20px",borderRadius:"10px"}} className="mock"></h2>
           }
           {(posts.length > 0)?<p dangerouslySetInnerHTML={{ __html: (posts.length > 0) ? posts[0].prompt.slice(0, 150) + '...' : "" }}></p>:
           <>
-          <p style={{width:"250px",height:"15px",backgroundColor:"grey",marginTop:"10px",borderRadius:"10px"}}></p>
-          <p style={{width:"250px",height:"15px",backgroundColor:"grey",marginTop:"10px",borderRadius:"10px"}}></p>
-          <p style={{width:"250px",height:"15px",backgroundColor:"grey",marginTop:"10px",borderRadius:"10px"}}></p>
+          <p style={{width:"250px",height:"15px",marginTop:"10px",borderRadius:"10px"}} className="mock"></p>
+          <p style={{width:"250px",height:"15px",marginTop:"10px",borderRadius:"10px"}} className="mock"></p>
+          <p style={{width:"250px",height:"15px",marginTop:"10px",borderRadius:"10px"}} className="mock"></p>
           </>}
           <div className="creator-trend flex">
             {posts.length > 0 && posts[0].creator.image ? (
               <img src={posts[0].creator.image} alt="Creator Image" />
             ) : (
-              <div className="mock-user" style={{width:"40px !important",height:"40px !important"}}></div>
+              <div className="mock-user mock" style={{width:"40px !important",height:"40px !important"}}></div>
             )}
             <div style={{ lineHeight: "15px" }}>
               <h1>{(posts.length > 0) ? posts[0].creator.username : ""}</h1>
