@@ -29,12 +29,18 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt?page=1&limit=0");
-    const data = await response.json();
-
-    setAllPosts(data?data.prompts:[]);
+    let data = null;
+  
+    // Keep fetching until you get a valid response with data
+    while (!data || data.prompts.length === 0) {
+      const randomPage = Math.floor(Math.random() * 10) + 1; // Random page between 1 and 10
+      const response = await fetch(`/api/prompt?page=${randomPage}&limit=4`);
+      data = await response.json();
+    }
+  
+    setAllPosts(data.prompts);
   };
-
+  
   useEffect(() => {
     fetchPosts();
   }, []);
