@@ -18,7 +18,8 @@ function Discover() {
             setLoader(true);
             const response = await fetch(`/api/prompt?page=1&limit=3`);
             const data = await response.json();
-            setAllPosts(data.prompts);
+            const shuffledPosts = shuffleArray(data.prompts);
+            setAllPosts(shuffledPosts);
             setTotalPage(data.totalPages);
             setLoader(false);
         } catch (e) {
@@ -26,19 +27,28 @@ function Discover() {
             setLoader(false);
         }
     };
-
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
+    
     const fetchMorePosts = async (currentPage) => {
         try {
             setLoader(true);
-            const response = await fetch(`/api/prompt?page=${currentPage}&limit=3`);
+            const response = await fetch(`/api/prompt?page=${currentPage}&limit=4`);
             const data = await response.json();
-            setAllPosts(prevPosts => [...prevPosts, ...data.prompts]);
+            const shuffledPosts = shuffleArray(data.prompts);
+            setAllPosts(prevPosts => [...prevPosts, ...shuffledPosts]);
             setLoader(false);
         } catch (e) {
             console.log(e);
             setLoader(false);
         }
     };
+    
 
     useEffect(() => {
         initialFetchPosts();
