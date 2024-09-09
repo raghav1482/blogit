@@ -13,6 +13,7 @@
     "@itseasy21/react-elastic-carousel": "^0.12.3",
     "axios": "^1.6.7",
     "cloudinary": "^2.0.3",
+    "firebase": "^10.13.1",
     "jodit-react": "^4.1.2",
     "mongoose": "^8.1.2",
     "next": "14.1.0",
