@@ -6,14 +6,14 @@ const Blogcard = ({post}) => {
   return (
     <div className="flex blogcard">
       <div style={{width:"50%",marginInline:"20px"}}>
-      <img src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${post.img}`}/>
+      <img src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${post.img}`} style={{width:"100%"}}/>
       <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer creator-blog ' style={{marginTop:"30px"}}>
           <Image
             src={post.creator.image}
             alt='user_image'
             width={100}
             height={100}
-            style={{borderRadius:"50%" , width:"40px",height:"40px"}}
+            style={{borderRadius:"50%" , width:"40px",height:"100%"}}
           />
           <Link href={`/profile/${post.creator._id}`}>
           <div className='flex flex-col'>

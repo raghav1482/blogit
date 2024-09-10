@@ -63,16 +63,16 @@ const Nav = () => {
                 <Link href='/discover' className='black_btn mx-3'>
                 Discover
               </Link>
-                <button
-                  type='button'
-                  key={provider.name}
-                  onClick={() => {
-                    signIn(provider.id);
-                  }}
-                  className='black_btn'
-                >
-                  Sign in
-                </button></>
+                <Link href='/signin' >
+      <button
+        type='button'
+        className='black_btn mx-3'
+        style={{ marginLeft: '10px' }}
+      >
+        Sign in
+      </button>
+    </Link>
+                </>
               ))}
           </>
         )}
@@ -127,16 +127,16 @@ const Nav = () => {
           <>
             {providers &&
               Object.values(providers).map((provider) => (<div style={{display:"flex",flexWrap:"wrap",justifyContent:"flex-end"}}>
-                <button
-                  type='button'
-                  key={provider.name}
-                  onClick={() => {
-                    signIn(provider.id);
-                  }}
-                  className='black_btn my-1' style={{marginLeft:"10px"}}
-                >
-                  Sign in
-                </button>
+
+                <Link href='/signin'>
+      <button
+        type='button'
+        className='black_btn my-1' 
+        style={{ marginLeft: '10px' }}
+      >
+        Sign in
+      </button>
+    </Link>
                 <Link href='/discover' className='black_btn my-1'>
                   Discover
                 </Link>

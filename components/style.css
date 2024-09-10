@@ -1,6 +1,7 @@
 /* Global Styles */
 body {
     margin-bottom: 0px;
+    overflow-x: hidden;
 }
 .trend-post{
     width: 100%;
@@ -159,6 +160,9 @@ body {
     max-height: max-content;
     overflow: hidden;
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .blogcard img {
     width: 100%;
@@ -231,6 +235,9 @@ body {
 
 /* Responsive Styles */
 @media screen and (max-width: 600px) {
+    .feed-sec{
+        width: 100vw !important;
+    }
     .post-head h2{
         font-size: 1.2rem;
     }
