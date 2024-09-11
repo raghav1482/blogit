@@ -15,6 +15,9 @@ const userSchema = new Schema({
     },
     banner:{
         type:String
+    },
+    password:{
+        type:String,
     }
 })
 

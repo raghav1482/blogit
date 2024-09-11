@@ -7,7 +7,6 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
   const { data: session } = useSession();
-
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -19,7 +18,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className='flex-between w-full mb-16 pt-3' style={{zIndex:"999"}}>
+    <nav className='flex-between w-full mb-16 pt-3' style={{ zIndex: "999" }}>
       <Link href='/' className='flex gap-2 flex-center'>
         <Image
           src='/assets/images/logo.png'
@@ -32,7 +31,7 @@ const Nav = () => {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className='sm:flex hidden' style={{zIndex:"999"}}>
+      <div className='sm:flex hidden' style={{ zIndex: "999" }}>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
             <Link href='/discover' className='black_btn'>
@@ -41,54 +40,46 @@ const Nav = () => {
             <Link href='/create-prompt' className='black_btn'>
               Create Post
             </Link>
-
             <button type='button' onClick={signOut} className='outline_btn'>
               Sign Out
             </button>
-
             <Link href='/profile'>
-              <Image
-                src={session?.user.image}
-                width={37}
-                height={37}
+              <img
+                src={session?.user?.image || "/assets/images/default-profile.png"}
                 className='rounded-full'
                 alt='profile'
+              width="30px"
+              height="30px"
               />
             </Link>
           </div>
         ) : (
           <>
-            {providers &&
-              Object.values(providers).map((provider) => (<>
+            {providers && (
+              <>
                 <Link href='/discover' className='black_btn mx-3'>
-                Discover
-              </Link>
-                <Link href='/signin' >
-      <button
-        type='button'
-        className='black_btn mx-3'
-        style={{ marginLeft: '10px' }}
-      >
-        Sign in
-      </button>
-    </Link>
-                </>
-              ))}
+                  Discover
+                </Link>
+                <Link href='/signin' className='black_btn mx-3'>
+                  Signin
+                </Link>
+              </>
+            )}
           </>
         )}
       </div>
 
       {/* Mobile Navigation */}
-      <div className='sm:hidden flex relative' style={{zIndex:"999"}}>
+      <div className='sm:hidden flex relative' style={{ zIndex: "999" }}>
         {session?.user ? (
           <div className='flex'>
-            <Image
-              src={session?.user.image}
-              width={37}
-              height={37}
+            <img
+              src={session?.user?.image || "/assets/images/default-profile.png"}
               className='rounded-full'
               alt='profile'
               onClick={() => setToggleDropdown(!toggleDropdown)}
+              width="30px"
+              height="30px"
             />
 
             {toggleDropdown && (
@@ -100,7 +91,11 @@ const Nav = () => {
                 >
                   My Profile
                 </Link>
-                <Link href='/discover' className='dropdown_link'>
+                <Link
+                  href='/discover'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropdown(false)}
+                >
                   Discover
                 </Link>
                 <Link
@@ -125,23 +120,18 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers &&
-              Object.values(providers).map((provider) => (<div style={{display:"flex",flexWrap:"wrap",justifyContent:"flex-end"}}>
-
-                <Link href='/signin'>
-      <button
-        type='button'
-        className='black_btn my-1' 
-        style={{ marginLeft: '10px' }}
-      >
-        Sign in
-      </button>
-    </Link>
+            {providers && (
+              <div
+                style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-end" }}
+              >
                 <Link href='/discover' className='black_btn my-1'>
                   Discover
                 </Link>
-                </div>
-              ))}
+                <Link href='/signin' className='black_btn mx-3'>
+                  Signin
+                </Link>
+              </div>
+            )}
           </>
         )}
       </div>

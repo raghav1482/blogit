@@ -20,8 +20,8 @@ const MyProfile = ({params}) => {
       setMyPosts(data);
     };
 
-    if (session?.user.id) fetchPosts();
-  }, [session?.user.id]);
+    fetchPosts();
+  },[]);
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
