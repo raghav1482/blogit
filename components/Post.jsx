@@ -4,6 +4,7 @@ import Comment from "./Comment";
 import "./style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 const Postcon = ({dat,id}) => {
   const { data: session } = useSession();
   const [comm,setComm]=useState({post:id,message:""});
@@ -17,12 +18,12 @@ const Postcon = ({dat,id}) => {
                 post:comm.post,
                 comment:comm.message,
                 userid:session?.user.id,
-            }).then((res)=>{setComm({post:id,message:""});setLoad(false)});
+            }).then((res)=>{setComm({post:id,message:""});setLoad(false);toast.success('Comment Posted')});
       }else{
-        alert("Please Sign in!!");
+        toast("Please Sign in!!",{icon:'⚠️'});
       }
   }catch(error){
-      console.log(error);
+      toast.error(error);
       setLoad(false);
   }
   }
@@ -33,7 +34,7 @@ const Postcon = ({dat,id}) => {
       try{
         const response = await axios.get(`/api/prompt/comment/${id}`)
       setAllComs(response.data.reverse());
-      }catch(e){console.log(e)}
+      }catch(e){toast.error(e)}
     }
     getcomms();
   },[comm])
@@ -41,6 +42,7 @@ const Postcon = ({dat,id}) => {
 
   return (
     <><div className="flex flex-col">
+      <Toaster/>
       <div className='post-con w-full flex flex-col '>
         <img src={dat?`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${dat.img}`:""}/>
         <div className='post-head'>

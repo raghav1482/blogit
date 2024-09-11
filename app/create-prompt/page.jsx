@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import "@components/style.css"
 import axios from 'axios';
+import toast, { Toaster } from "react-hot-toast"
 
 const CreatePrompt=()=>{
     const router = useRouter();
@@ -35,10 +36,11 @@ const CreatePrompt=()=>{
                 })
             })
             if(response.ok){
+                toast.success("Blog posted Successfully");
                 router.push('/');
             }
         }catch(error){
-            console.log(error);
+            toast.error(error);
         }finally{
             setSubmitting(false);
         }
@@ -64,14 +66,15 @@ const CreatePrompt=()=>{
     const uploadImg =async(base64EncodedImage)=>{
         try{
             setUploading(true);
-            await axios.post(`/api/prompt/image`,{data:base64EncodedImage}).then((result)=>{setBlogImg(result.data);setUploading(false)});
-        }catch(e){console.log(e);setUploading(false)}
+            await axios.post(`/api/prompt/image`,{data:base64EncodedImage}).then((result)=>{setBlogImg(result.data);setUploading(false);toast.success("Image uploaded")});
+        }catch(e){toast.error(e);setUploading(false)}
     };
     console.log(blogimg);
 
     return (
     <>
     {<div className="flex flex-row" style={{justifyContent:"space-around",flexWrap:"wrap-reverse",minHeight:"120vh"}}>
+        <Toaster/>
         <Form type="Create" post={post} setPost={setPost} submitting={submitting} uploading={uploading} handleSubmit={createPrompt}/>
         <div className="flex flex-col" style={{minWidth:"200px",maxWidth:"400px",margin: "auto 30px",alignItems:"center"}}>
         <input type="file" id="file-upload" onChange={handleChange}  accept=".jpg, .jpeg, .png" style={{display:"none"}}/>

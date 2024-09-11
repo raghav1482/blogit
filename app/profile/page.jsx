@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Profile2 from "@components/Profile2";
+import toast, { Toaster } from "react-hot-toast";
 
 const MyProfile = ({params}) => {
   const router = useRouter();
@@ -28,7 +29,7 @@ const MyProfile = ({params}) => {
 
   const handleDelete = async (post) => {
     const hasConfirmed = confirm(
-      "Are you sure you want to delete this prompt?"
+      "Are you sure you want to delete this post?"
     );
 
     if (hasConfirmed) {
@@ -40,14 +41,16 @@ const MyProfile = ({params}) => {
         const filteredPosts = myPosts.filter((item) => item._id !== post._id);
 
         setMyPosts(filteredPosts);
+        toast.success("Post deleted");
       } catch (error) {
-        console.log(error);
+        toast.error(error);
       }
     }
   };
 
-  return (
-    <Profile2 name={(myPosts.length>0)?myPosts[0].creator.username:""} desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination' posts={myPosts} handleEdit={handleEdit} handleDelete={handleDelete} id={params.id}/>
+  return (<>
+  <Toaster/>
+    <Profile2 name={(myPosts.length>0)?myPosts[0].creator.username:""} desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination' posts={myPosts} handleEdit={handleEdit} handleDelete={handleDelete} id={params.id}/></>
   );
 };
 

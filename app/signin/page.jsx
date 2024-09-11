@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signIn, getProviders } from "next-auth/react"; // Import NextAuth methods
 import { Suspense } from "react";
 import styles from './login.module.css'; // Import CSS module
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -51,10 +52,11 @@ const LoginForm = () => {
           setIsRegistering(false); // Switch to login mode after registration
         } else {
           const error = await response.json();
-          alert(error.message); // Handle registration error
+          toast.error(error.message);
         }
       } catch (error) {
         console.error(error);
+        toast.error(error.message);
       } finally {
         setIsSubmitting(false);
       }
@@ -67,8 +69,10 @@ const LoginForm = () => {
       });
   
       if (result?.error) {
-        alert(result.error); // Display login error
+        // alert(result.error);
+        toast.error(result?.error); // Display login errorror)
       } else {
+        toast.success("Login Success");
         router.push("/"); // Redirect to home or dashboard on successful login
       }
       setIsSubmitting(false);
@@ -83,6 +87,7 @@ const LoginForm = () => {
 
   return (
     <Suspense>
+      <Toaster />
       <form onSubmit={handleFormSubmit} className={styles["login-form"]}>
         <h1 className={styles["form-title"]}>{isRegistering ? "Register" : "Login"}</h1>
 

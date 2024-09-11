@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import Slider from "./Slider";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
   const [previewsrc, setPreviewSource] = useState();
@@ -33,20 +34,19 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
 
   const deleteOld = async (id) => {
     await axios.post("/api/prompt/image/delete", { id: id }).then(() => {
-      console.log("Old deleted successfully");
+      // toast.success("Old deleted successfully");
     }).catch(e => {
-      console.log(e);
+      toast.error(e);
     });
   };
 
   const updateBanner = async ({ userId, newBannerUrl }) => {
-    console.log(userId, newBannerUrl);
     await axios.put(`/api/banner`, { userId, newBannerUrl }).then((response) => {
-      console.log(response);
       deleteOld(response.data.old_banner);
       setUploading(false);
+      toast.success("Banner Updated Successfuly");
     }).catch(e => {
-      console.log(e);
+      toast.error(e);
       setUploading(false);
     });
   };
@@ -58,7 +58,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
         updateBanner({ userId: session.user.id, newBannerUrl: result.data });
       });
     } catch (e) {
-      console.log(e);
+      toast.error(e);
       setUploading(false);
     }
   };
@@ -116,6 +116,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
 
   return (
     <section className='w-full channel-div'>
+      <Toaster/>
       <div className="ch-banner">
         {id === undefined ? <label htmlFor="banner-img"><i className="fa fa-camera"></i></label> : ""}
         {uploading && <div className="loading"><span className="loader2"></span></div>}
