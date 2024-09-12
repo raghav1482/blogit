@@ -40,32 +40,48 @@ const Nav = () => {
             <Link href='/create-prompt' className='black_btn'>
               Create Post
             </Link>
-            <button type='button' onClick={signOut} className='outline_btn'>
-              Sign Out
-            </button>
-            <Link href='/profile'>
+            <div className='relative'>
               <img
                 src={session?.user?.image || "/assets/images/default-profile.png"}
-                className='rounded-full'
+                className='rounded-full cursor-pointer'
                 alt='profile'
-              width="30px"
-              height="30px"
+                width="30px"
+                height="30px"
+                onClick={() => setToggleDropdown(!toggleDropdown)}
               />
-            </Link>
+              {toggleDropdown && (
+                <div className='dropdown'>
+                  <Link href='/profile' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
+                    My Profile
+                  </Link>
+                  <Link href='/settings' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
+                    Settings
+                  </Link>
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setToggleDropdown(false);
+                      signOut();
+                    }}
+                    className='mt-3 w-full black_btn'
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         ) : (
-          <>
-            {providers && (
-              <>
-                <Link href='/discover' className='black_btn mx-3'>
-                  Discover
-                </Link>
-                <Link href='/signin' className='black_btn mx-3'>
-                  Signin
-                </Link>
-              </>
-            )}
-          </>
+          <>{providers && (
+            <>
+              <Link href='/discover' className='black_btn mx-3'>
+                Discover
+              </Link>
+              <Link href='/signin' className='black_btn mx-3'>
+                Signin
+              </Link>
+            </>
+          )}</>
         )}
       </div>
 
@@ -75,7 +91,7 @@ const Nav = () => {
           <div className='flex'>
             <img
               src={session?.user?.image || "/assets/images/default-profile.png"}
-              className='rounded-full'
+              className='rounded-full cursor-pointer'
               alt='profile'
               onClick={() => setToggleDropdown(!toggleDropdown)}
               width="30px"
@@ -84,25 +100,16 @@ const Nav = () => {
 
             {toggleDropdown && (
               <div className='dropdown'>
-                <Link
-                  href='/profile'
-                  className='dropdown_link'
-                  onClick={() => setToggleDropdown(false)}
-                >
+                <Link href='/profile' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
                   My Profile
                 </Link>
-                <Link
-                  href='/discover'
-                  className='dropdown_link'
-                  onClick={() => setToggleDropdown(false)}
-                >
+                <Link href='/settings' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
+                  Settings
+                </Link>
+                <Link href='/discover' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
                   Discover
                 </Link>
-                <Link
-                  href='/create-prompt'
-                  className='dropdown_link'
-                  onClick={() => setToggleDropdown(false)}
-                >
+                <Link href='/create-prompt' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
                   Create Prompt
                 </Link>
                 <button
@@ -119,20 +126,18 @@ const Nav = () => {
             )}
           </div>
         ) : (
-          <>
-            {providers && (
-              <div
-                style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-end" }}
-              >
-                <Link href='/discover' className='black_btn my-1'>
-                  Discover
-                </Link>
-                <Link href='/signin' className='black_btn mx-3'>
-                  Signin
-                </Link>
-              </div>
-            )}
-          </>
+          <>{providers && (
+            <div
+              style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-end" }}
+            >
+              <Link href='/discover' className='black_btn my-1'>
+                Discover
+              </Link>
+              <Link href='/signin' className='black_btn mx-3'>
+                Signin
+              </Link>
+            </div>
+          )}</>
         )}
       </div>
     </nav>
