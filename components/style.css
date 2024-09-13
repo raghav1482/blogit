@@ -1,4 +1,5 @@
 /* Global Styles */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 body {
     margin-bottom: 0px;
     overflow-x: hidden;
@@ -209,6 +210,25 @@ body {
 }
 .srch_res a:hover {
     color: rgb(95, 82, 0);
+}
+
+.post-actions{
+    margin-top: 100px;
+    margin-left: 60%;
+}
+.post-actions i{
+    font-size: 24px !important;
+    color: black ;
+}
+.post-actions button{
+    margin: 10px;
+}
+
+.green{
+    color: green !important;
+}
+.red{
+    color: red !important;
 }
 
 .loader {

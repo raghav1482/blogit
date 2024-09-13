@@ -20,7 +20,9 @@ const promptSchema = new Schema({
     img:{
         type:String,
         required:[true,'image is required'],
-    }
+    },
+    likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
+    dislikes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
 })
 
 const Prompt = models.Prompt || model("Prompt",promptSchema);

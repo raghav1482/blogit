@@ -38,7 +38,7 @@ const Nav = () => {
               Discover
             </Link>
             <Link href='/create-prompt' className='black_btn'>
-              Create Post
+              Create Blog
             </Link>
             <div className='relative'>
               <img
@@ -110,7 +110,7 @@ const Nav = () => {
                   Discover
                 </Link>
                 <Link href='/create-prompt' className='dropdown_link' onClick={() => setToggleDropdown(false)}>
-                  Create Prompt
+                  Create Blog
                 </Link>
                 <button
                   type='button'
