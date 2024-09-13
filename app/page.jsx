@@ -3,7 +3,8 @@ import Feed from "@components/Feed"
 const Home = () => {
   return (
     <section className="w-full flex-center flex-col feed-sec">
-        <h1 className="head_text text-center">BLOGIT <br className="max-md:hidden"/>
+        <h1 className="head_text text-center">
+          <p className="my-4">BLOGIT</p>
         <span className="cyan_gradient text-center">
         Discover, click, explore!
         </span>
