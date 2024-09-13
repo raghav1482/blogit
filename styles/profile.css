@@ -127,6 +127,101 @@ background-color: grey;
     animation: rotation 1s linear infinite;
     margin-top: 30vh;
   }
+
+  .youtube-navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: left;
+    padding: 10px 0;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .navbar-list {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    width: 50%;
+    padding: 0;
+  }
+  
+  .navbar-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 14px;
+    color: #000000 ;
+    padding: 8px 16px;
+    transition: color 0.3s ease;
+    background-color: white ;
+  }
+  
+  .navbar-item i {
+    margin-right: 8px;
+    font-size: 15px;
+  }
+  
+  .navbar-item:hover {
+    color: #383838;
+  }
+
+  .prof-blog-card{
+    width: 100%;
+    height: 150px;
+    overflow-y: hidden;
+    display: flex;
+    margin-top: 20px;
+    text-align: justify;
+}
+  .prof-blog-card img{
+    width: 230px !important;
+    /* height: 130px; */
+    object-fit: cover;
+    margin-right: 30px;
+    border-radius: 10px;
+}
+.blog-title{
+font-weight: 500;
+}
+.blog-excerpt{
+    max-width: 80%;
+}
+.prof-blogs{
+    padding: 20px;
+}
+.prof-active{
+    background-color: #000000 !important;
+    color: white !important;
+    border-radius: 10px;
+}
+/* WebKit-based browsers */
+.blog-excerpt::-webkit-scrollbar {
+    width: 3px !important; /* Thinner scrollbar */
+}
+
+.blog-excerpt::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb color */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.blog-excerpt::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+  
+  @media (max-width: 768px) {
+    .navbar-list {
+      width: 80%;
+    }
+  
+    .navbar-item {
+      font-size: 14px;
+    }
+    .blog-excerpt{
+        max-width: 100%;
+    }
+  }
+  
   
   @keyframes rotation {
     0% {
@@ -142,7 +237,7 @@ background-color: grey;
         font-size: 10px !important;
     }
     .outline_btn{
-        scale: 0.8;
+        scale: 0.6;
     }
     .ch-strip img{
         width: 40px;
@@ -150,6 +245,12 @@ background-color: grey;
     }
     .ch-strip{
         padding: 10px;
+    }
+    .ch-strip div{
+        max-width: 70%;
+    }
+    .ch-strip h3{
+        font-size: 13px !important;
     }
     .ch-banner img{
         width: 100%;
@@ -160,4 +261,47 @@ background-color: grey;
         height: 150px;
 
     }
+    .channel-div{
+        width: 100vw;
+        overflow-x: hidden;
+    }
+    .ch-strip .mock-user{
+        width: 30px;
+        height: 30px;
+    }
+    .prof-blog-card{
+        height: 90px;
+    }
+    .prof-blog-card img{
+        width: 130px !important;
+        margin-right: 10px !important;
+    }
+    .blog-title{
+        font-size: 11px !important;
+        font-weight: 600;
+    }
+    .blog-excerpt{
+        font-size: 10px;
+        overflow-y: scroll;
+        max-height: 100px;
+    }
+    
+    .prof-blogs{
+        padding: 0;
+    }
+    .navbar-item {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        font-size: 14px;
+        color: #000000 ;
+        padding: 8px 16px;
+        transition: color 0.3s ease;
+        background-color: white ;
+      }
+      
+      .navbar-item i {
+        margin-right: 8px;
+        font-size: 13px;
+      }
 }

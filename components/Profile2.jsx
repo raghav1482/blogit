@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import Slider from "./Slider";
 import toast, { Toaster } from 'react-hot-toast';
+import Link from "next/link";
 
 const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
   const [previewsrc, setPreviewSource] = useState();
@@ -13,6 +14,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
   const [fileInput, setFileInput] = useState("");
   const [imageSrc, setImageSrc] = useState('');
   const [followStatus,setFollowStatus]=useState(false);
+  const [navstate , setNavstate]=useState("home");
   const { data: session } = useSession();
 
   const handleChange = async (e) => {
@@ -197,6 +199,37 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
         </div>
         <button className="outline_btn" onClick={handleFollow}>{followStatus?'Following':'Follow'}</button>
       </div>
+      <nav className="youtube-navbar">
+      <ul className="navbar-list">
+  <li>
+    <button
+      onClick={() => setNavstate("home")}
+      className={`navbar-item${navstate === "home" ? " prof-active" : ""}`}
+    >
+      <i className="fa fa-home"></i> Home
+    </button>
+  </li>
+  <li>
+    <button
+      onClick={() => setNavstate("blogs")}
+      className={`navbar-item${navstate === "blogs" ? " prof-active" : ""}`}
+    >
+      <i className="fa fa-book"></i> Blogs
+    </button>
+  </li>
+  <li>
+    <button
+      onClick={() => setNavstate("about")}
+      className={`navbar-item${navstate === "about" ? " prof-active" : ""}`}
+    >
+      <i className="fa fa-info-circle"></i> About
+    </button>
+  </li>
+</ul>
+
+  </nav>
+
+  {(navstate=="home")&&<div className="profile-home" style={{width:"100%"}}>
       <div className="trend-post flex">
         {posts?.length > 0 && posts[0].img ? (
           <img
@@ -261,6 +294,41 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
           handleDelete={handleDelete}
         />
       </div>
+    </div>}
+    {navstate === "blogs" && (
+        <div className="profile-blogs">
+          <h1 style={{ fontSize: "25px", fontWeight: "bold" }}>Blogs</h1>
+          <div className="blogs-list">
+            {posts?.length > 0 ? (
+              posts.map((post) => (
+                <div key={post._id} className="prof-blog-card">
+                  <img
+                    src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${post.img}`}
+                    alt={post.title}
+                    className="blog-img"
+                  />
+                  <div>
+                    <Link href={`/post/${post._id}`}>
+                  <h2 className="blog-title">{post.title.slice(0,80)+"..."}</h2>
+                  </Link>
+                  <p className="blog-excerpt"dangerouslySetInnerHTML={{ __html: post.prompt.slice(0, 250) + "..." }}></p><br/>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No blogs to show.</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* About Section */}
+      {navstate === "about" && (
+        <div className="profile-about" style={{ padding: "20px" }}>
+          <h1 style={{ fontSize: "25px", fontWeight: "bold" }}>About</h1>
+          <p>{desc || "No description provided."}</p>
+        </div>
+      )}
     </section>
   );
 };

@@ -257,6 +257,16 @@ body {
     .trend-dat p {
         font-size: 12px;
     }
+    .trend-dat h2.mock {
+        width: 170px !important;
+        margin-top: 10px;
+    }
+    
+    .trend-dat p.mock {
+        width: 200px !important;
+    }
+    
+    
     .trend-post img {
         width: 100%;
     }
