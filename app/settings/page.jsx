@@ -56,7 +56,7 @@ const SettingsPage = ({ params }) => {
   };
 
   return (
-    <div style={{height:"90vh",width:"100%",display:"flex",alignItems:"center",flexDirection:"column"}}>
+    <div style={{width:"100%",display:"flex",alignItems:"center",flexDirection:"column"}}>
       <Toaster />
       {loader?<span className="loader"></span>:
       <Settings
@@ -66,6 +66,7 @@ const SettingsPage = ({ params }) => {
         handleDelete={handleDelete}
         id={params.id}
         email={session?.user?.email }
+        user={session?.user}
       />
 }
     </div>

@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 import './settings.css';
 import toast, { Toaster } from 'react-hot-toast';
+import Link from 'next/link';
 
-const SettingsPage = ({ 
-  name, 
-  posts, 
-  handleEdit, 
-  handleDelete,
-  email 
-}) => {
-  const [emailInput, setEmail] = useState(email);
-  const [username, setUsername] = useState(name);
+const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
+  const [emailInput, setEmail] = useState(user?.email);
+  const [username, setUsername] = useState(user?.name);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [activeSection, setActiveSection] = useState('Basic Info'); // State to track active section
+  const [activeSection, setActiveSection] = useState('Basic Info');
   const [editingPost, setEditingPost] = useState(null);
   const [postContent, setPostContent] = useState('');
 
-  const handleSave = () => {
-    // Handle saving settings and post edits here
-    toast.success("Success")
-  };
+  // Edit modes for individual sections
+  const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
+  const [isEditingEmailSettings, setIsEditingEmailSettings] = useState(false);
+  const [isEditingNotifications, setIsEditingNotifications] = useState(false);
 
   const handlePostEdit = (post) => {
     setEditingPost(post);
-    setPostContent(post.content); // Assuming post object has a content field
+    setPostContent(post.content);
     setActiveSection('Posts');
   };
 
@@ -37,28 +32,49 @@ const SettingsPage = ({
           },
           body: JSON.stringify({ ...editingPost, content: postContent }),
         });
-        alert('Post updated successfully');
+        toast.success('Post updated successfully');
         setEditingPost(null);
         setPostContent('');
-        // Optionally, refresh posts list or handle updates here
       } catch (error) {
-        alert('Failed to update post');
+        toast.error('Failed to update post');
       }
     }
+  };
+
+  const handleSaveBasicInfo = () => {
+    setIsEditingBasicInfo(false);
+    toast.success('Basic info saved successfully!');
+    // Optionally, make an API call here to save the updated user info
+  };
+
+  const handleSaveEmailSettings = () => {
+    setIsEditingEmailSettings(false);
+    toast.success('Email settings saved successfully!');
+    // Optionally, make an API call here to save email settings
+  };
+
+  const handleSaveNotifications = () => {
+    setIsEditingNotifications(false);
+    toast.success('Notification settings saved successfully!');
+    // Optionally, make an API call here to save notification preferences
   };
 
   const renderSection = () => {
     switch (activeSection) {
       case 'Basic Info':
         return (
-          <div className="settings-section">
+          <div className="settings-section card">
             <h2>Basic Info</h2>
+            <div className="profile-pic-container">
+              <img src={user?.image} alt="Profile" className="profile-pic" />
+            </div>
             <label>
               Email
               <input
                 type="text"
                 value={emailInput}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={!isEditingBasicInfo}
               />
             </label>
             <label>
@@ -67,13 +83,21 @@ const SettingsPage = ({
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                disabled={!isEditingBasicInfo}
               />
             </label>
+            <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
+              {!isEditingBasicInfo ? (
+                <button className="black_btn" onClick={() => setIsEditingBasicInfo(true)}>Edit</button>
+              ) : (
+                <button className="outline_btn" onClick={handleSaveBasicInfo}>Save</button>
+              )}
+            </div>
           </div>
         );
       case 'Email Settings':
         return (
-          <div className="settings-section">
+          <div className="settings-section card">
             <h2>Email Settings</h2>
             <label>
               Email
@@ -81,20 +105,28 @@ const SettingsPage = ({
                 type="email"
                 value={emailInput}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={!isEditingEmailSettings}
               />
             </label>
+            <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
+              {!isEditingEmailSettings ? (
+                <button className="black_btn" onClick={() => setIsEditingEmailSettings(true)}>Edit</button>
+              ) : (
+                <button className="outline_btn" onClick={handleSaveEmailSettings}>Save</button>
+              )}
+            </div>
           </div>
         );
       case 'Search History':
         return (
-          <div className="settings-section">
+          <div className="settings-section card">
             <h2>Search History</h2>
             <p>Your recent searches will be displayed here.</p>
           </div>
         );
       case 'Notifications':
         return (
-          <div className="settings-section">
+          <div className="settings-section card">
             <h2>Notifications</h2>
             <label>
               Enable notifications
@@ -102,33 +134,30 @@ const SettingsPage = ({
                 type="checkbox"
                 checked={notificationsEnabled}
                 onChange={() => setNotificationsEnabled(!notificationsEnabled)}
+                disabled={!isEditingNotifications}
               />
             </label>
+            <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
+              {!isEditingNotifications ? (
+                <button className="black_btn" onClick={() => setIsEditingNotifications(true)}>Edit</button>
+              ) : (
+                <button className="outline_btn" onClick={handleSaveNotifications}>Save</button>
+              )}
+            </div>
           </div>
         );
       case 'Posts':
         return (
-          <div className="settings-section">
+          <div className="settings-section" style={{overflowY:"scroll"}}>
             <h2>Your Posts</h2>
             {posts && posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.id} className="post-item">
-                  {editingPost && editingPost.id === post.id ? (
-                    <>
-                      <textarea
-                        value={postContent}
-                        onChange={(e) => setPostContent(e.target.value)}
-                      />
-                      <button onClick={handlePostSave}>Save</button>
-                      <button onClick={() => setEditingPost(null)}>Cancel</button>
-                    </>
-                  ) : (
-                    <>
-                      <h3>{post.title}</h3>
-                      <button onClick={() => handlePostEdit(post)}>Edit</button>
-                      <button onClick={() => handleDelete(post.id)}>Delete</button>
-                    </>
-                  )}
+                  <img src={`https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${post.img}`} alt="Post" />
+                  <div>
+                    <h3>{post.title}</h3>
+                    <Link href={`/post/${post._id}`} className="black_btn" style={{ width: '70px' }}>Read</Link>
+                  </div>
                 </div>
               ))
             ) : (
@@ -143,26 +172,23 @@ const SettingsPage = ({
 
   return (
     <>
-    <Toaster/>
-    <div className="settings-container">
-      <div className="sidebar">
-        <h2></h2>
-        <ul>
-          <li onClick={() => setActiveSection('Basic Info')}>Basic Info</li>
-          <li onClick={() => setActiveSection('Email Settings')}>Email Settings</li>
-          <li onClick={() => setActiveSection('Search History')}>Search History</li>
-          <li onClick={() => setActiveSection('Notifications')}>Notifications</li>
-          <li onClick={() => setActiveSection('Posts')}>Posts</li>
-        </ul>
+      <Toaster />
+      <div className="settings-container">
+        <div className="sidebar">
+          <h2></h2>
+          <ul>
+            <li onClick={() => setActiveSection('Basic Info')} className={activeSection === 'Basic Info' ? 'active' : ''}>Basic Info</li>
+            <li onClick={() => setActiveSection('Email Settings')} className={activeSection === 'Email Settings' ? 'active' : ''}>Email Settings</li>
+            <li onClick={() => setActiveSection('Search History')} className={activeSection === 'Search History' ? 'active' : ''}>Search History</li>
+            <li onClick={() => setActiveSection('Notifications')} className={activeSection === 'Notifications' ? 'active' : ''}>Notifications</li>
+            <li onClick={() => setActiveSection('Posts')} className={activeSection === 'Posts' ? 'active' : ''}>Posts</li>
+          </ul>
+        </div>
+        <div className="main-content">
+          <h1>Settings</h1>
+          {renderSection()}
+        </div>
       </div>
-      <div className="main-content">
-        <h1>Settings</h1>
-        {renderSection()} {/* Renders the active section content */}
-        <button className="save-btn" onClick={handleSave}>
-          Save Settings
-        </button>
-      </div>
-    </div>
     </>
   );
 };
