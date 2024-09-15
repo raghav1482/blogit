@@ -42,7 +42,7 @@ const LoginForm = () => {
             email: credentials.email,
             password: credentials.password,
             username: credentials.username,
-            image:'https://randomuser.me/api/portraits/lego/1.jpg'
+            image:`https://randomuser.me/api/portraits/lego/${Math.floor(Math.random() * 10)}.jpg`
           }),
           headers: { "Content-Type": "application/json" },
         });

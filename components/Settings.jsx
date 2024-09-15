@@ -22,41 +22,19 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
     setActiveSection('Posts');
   };
 
-  const handlePostSave = async () => {
-    if (editingPost) {
-      try {
-        await fetch(`/api/posts/${editingPost.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ...editingPost, content: postContent }),
-        });
-        toast.success('Post updated successfully');
-        setEditingPost(null);
-        setPostContent('');
-      } catch (error) {
-        toast.error('Failed to update post');
-      }
-    }
-  };
-
   const handleSaveBasicInfo = () => {
     setIsEditingBasicInfo(false);
     toast.success('Basic info saved successfully!');
-    // Optionally, make an API call here to save the updated user info
   };
 
   const handleSaveEmailSettings = () => {
     setIsEditingEmailSettings(false);
     toast.success('Email settings saved successfully!');
-    // Optionally, make an API call here to save email settings
   };
 
   const handleSaveNotifications = () => {
     setIsEditingNotifications(false);
     toast.success('Notification settings saved successfully!');
-    // Optionally, make an API call here to save notification preferences
   };
 
   const renderSection = () => {
@@ -64,7 +42,6 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Basic Info':
         return (
           <div className="settings-section card">
-            <h2>Basic Info</h2>
             <div className="profile-pic-container">
               <img src={user?.image} alt="Profile" className="profile-pic" />
             </div>
@@ -98,7 +75,7 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Email Settings':
         return (
           <div className="settings-section card">
-            <h2>Email Settings</h2>
+  
             <label>
               Email
               <input
@@ -120,14 +97,12 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Search History':
         return (
           <div className="settings-section card">
-            <h2>Search History</h2>
             <p>Your recent searches will be displayed here.</p>
           </div>
         );
       case 'Notifications':
         return (
           <div className="settings-section card">
-            <h2>Notifications</h2>
             <label>
               Enable notifications
               <input
@@ -149,7 +124,6 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Posts':
         return (
           <div className="settings-section" style={{overflowY:"scroll"}}>
-            <h2>Your Posts</h2>
             {posts && posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.id} className="post-item">
