@@ -16,6 +16,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
   const [followStatus,setFollowStatus]=useState(false);
   const [navstate , setNavstate]=useState("home");
   const { data: session } = useSession();
+  const [loadingTimeout, setLoadingTimeout] = useState(false);
 
   const handleChange = async (e) => {
     e.preventDefault();
@@ -117,7 +118,15 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
     }
   };
 
-  const defaultBanner = "https://via.placeholder.com/800x200?text=Default+Banner";
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!posts?.length) {
+        setLoadingTimeout(true); // Set loading timeout to true after 10 seconds
+      }
+    }, 10000); // 10 seconds timeout
+
+    return () => clearTimeout(timeout); // Clear timeout on cleanup
+  }, [posts]);
 
   useEffect(() => {
     setFollowers((Math.random() * 100).toFixed(1));
@@ -131,14 +140,14 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
           if (response.ok) {
             setImageSrc(url);
           } else {
-            setImageSrc(defaultBanner);
+            setImageSrc();
           }
         })
         .catch(() => {
-          setImageSrc(defaultBanner);
+          setImageSrc();
         });
     } else {
-      setImageSrc(defaultBanner);
+      setImageSrc();
     }
   }, [previewsrc, posts]);
 
@@ -168,6 +177,9 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
       title: "Loading...",
     },
   ];
+  const handleReload = () => {
+    window.location.reload(); // Reload the page when the button is clicked
+  };
   return (
     <section className='w-full channel-div'>
       <Toaster />
@@ -228,7 +240,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
 </ul>
 
   </nav>
-
+{!loadingTimeout &&<>
   {(navstate=="home")&&<div className="profile-home" style={{width:"100%"}}>
       <div className="trend-post flex">
         {posts?.length > 0 && posts[0].img ? (
@@ -241,7 +253,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
         )}
         <div className="trend-dat">
           {posts?.length > 0 ? (
-            <h2 style={{ fontSize: "20px" }}>{posts[0].title.slice(0, 36) + '...'}</h2>
+            <Link href={"/post/"+posts[0]?._id}><h2 style={{ fontSize: "20px" }}>{posts[0].title.slice(0, 36) + '...'}</h2></Link>
           ) : (
             <h2 className="mock" style={{ fontSize: "20px", width: "300px", height: "20px", borderRadius: "10px" }}></h2>
           )}
@@ -327,6 +339,15 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
         <div className="profile-about" style={{ padding: "20px" }}>
           <h1 style={{ fontSize: "25px", fontWeight: "bold" }}>About</h1>
           <p>{desc || "No description provided."}</p>
+        </div>
+      )}
+      </>
+      }
+      {loadingTimeout && !posts?.length && ( // Show reload button if data didn't load within 10 seconds
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <button className="reload-button" onClick={handleReload}>
+          <i className='fas fa-redo-alt'></i>
+          </button>
         </div>
       )}
     </section>

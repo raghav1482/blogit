@@ -71,7 +71,7 @@ function Discover() {
     };
 
     const handleScroll = useCallback(() => {
-        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - 1) {
+        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - 25) {
             if (page < totalPage && !loader) {
                 setPage(prevPage => prevPage + 1);
             }
@@ -99,7 +99,7 @@ function Discover() {
                                 alt='user_image'
                             />
                             <div className="trend-dat">
-                                <h2>{(allPosts.length > 0) ? allPosts[0].title.slice(0, 36) + '...' : ""}</h2>
+                            {(allPosts.length > 0) ? <Link href={"/post/"+allPosts[0]?._id}><h2>{allPosts[0].title.slice(0, 36) + '...'} </h2></Link>: ""}
                                 <p dangerouslySetInnerHTML={{ __html: (allPosts.length > 0) ? allPosts[0].prompt.slice(0, 150) + '...' : "" }}></p>
                                 <div className="creator-trend flex">
                                     <img src={(allPosts.length > 0) ? allPosts[0].creator.image : ""} />
@@ -143,7 +143,7 @@ function Discover() {
                     </div>
                 </>
             )}
-            {loader && page > 1 && <span className="loader"></span>}
+            {loader && page > 1 && <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}><span className="loader"></span></div>}
         </>
     );
 }

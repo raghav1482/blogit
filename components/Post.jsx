@@ -5,6 +5,7 @@ import "./style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 const Postcon = ({ dat, id }) => {
   const { data: session } = useSession();
@@ -135,7 +136,8 @@ const Postcon = ({ dat, id }) => {
             <span className="flex flex-row" style={{ alignItems: "center" }}>
               <img src={dat?.creator?.image || ""} />
               <div className="flex flex-col mx-3 text-sm my-5">
-                <h1 className="font-bold">{dat?.creator?.username || ""}</h1>
+                <Link href={"/profile/"+dat?.creator?._id}>
+                <h1 className="font-bold">{dat?.creator?.username || ""}</h1></Link>
                 <h1 className="font-normal">{dat?.creator?.email || ""}</h1>
               </div>
             </span>
