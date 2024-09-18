@@ -90,7 +90,9 @@ const Feed = () => {
     const searchResult = filterPrompts(tagName);
     setSearchedResults(searchResult);
   };
-
+  const handleReload = () => {
+    window.location.reload(); // Reload the page when the button is clicked
+  };
   return (
     <section className="feed">
       <form className="relative w-full flex-center">
@@ -106,7 +108,11 @@ const Feed = () => {
 
       {loading && <p className="text-center mt-16 loader"></p>} {/* Loading state */}
 
-      {error && <p className="text-center mt-16 text-red-500">{error}</p>} {/* Error state */}
+      {error &&         <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <button className="reload-button" onClick={handleReload}>
+          <i className='fas fa-redo-alt'></i>
+          </button>
+        </div>} {/* Error state */}
 
       {!loading && !error && (
         searchText ? (
