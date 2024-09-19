@@ -231,21 +231,3 @@
   @apply flex justify-between items-center;
 }
 
-.footer{
-  background-color: black;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 100px;
-  align-items: center;
-  padding: 30px;
-  width: 100%;
-  z-index: 999;
-  position: relative;
-  top: 200px;
-}
-.footer h3{
-  font-weight: 700;
-  font-size: 25px;
-}

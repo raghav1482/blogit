@@ -323,6 +323,10 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
                     <Link href={`/post/${post._id}`}>
                   <h2 className="blog-title">{post.title.slice(0,80)+"..."}</h2>
                   </Link>
+                  <div className="blog-info">
+      <p>{Math.floor(Math.random() * 10000)} views</p><span className="mx-2">&middot;</span>
+      <p>{Math.floor(Math.random() * 10)} days ago</p>
+    </div>
                   <p className="blog-excerpt"dangerouslySetInnerHTML={{ __html: post.prompt.slice(0, 250) + "..." }}></p><br/>
                   </div>
                 </div>
