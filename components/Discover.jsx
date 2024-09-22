@@ -71,12 +71,16 @@ function Discover() {
     };
 
     const handleScroll = useCallback(() => {
-        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - 25) {
+        const scrollPosition = window.innerHeight + document.documentElement.scrollTop;
+        const threshold = document.documentElement.scrollHeight * 0.8; // 80% of the total height
+    
+        if (scrollPosition >= threshold) {
             if (page < totalPage && !loader) {
                 setPage(prevPage => prevPage + 1);
             }
         }
     }, [page, totalPage, loader]);
+    
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
