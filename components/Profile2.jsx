@@ -123,7 +123,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
       if (!posts?.length) {
         setLoadingTimeout(true); // Set loading timeout to true after 10 seconds
       }
-    }, 10000); // 10 seconds timeout
+    }, 20000); // 10 seconds timeout
 
     return () => clearTimeout(timeout); // Clear timeout on cleanup
   }, [posts]);

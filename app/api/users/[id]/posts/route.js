@@ -10,4 +10,12 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         return new Response("Failed to fetch prompts created by user", { status: 500 })
     }
-} 
+}
+
+export const PUT = async(request)=>{
+    try{
+        console.log("user update");
+    }catch(e){
+        console.log(e);
+    }
+}

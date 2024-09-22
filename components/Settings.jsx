@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './settings.css';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
+import axios from 'axios';
 
 const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
   const [emailInput, setEmail] = useState(user?.email);
@@ -10,7 +11,6 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
   const [activeSection, setActiveSection] = useState('Basic Info');
   const [editingPost, setEditingPost] = useState(null);
   const [postContent, setPostContent] = useState('');
-
   // Edit modes for individual sections
   const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
   const [isEditingEmailSettings, setIsEditingEmailSettings] = useState(false);
@@ -22,10 +22,22 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
     setActiveSection('Posts');
   };
 
-  const handleSaveBasicInfo = () => {
-    setIsEditingBasicInfo(false);
-    toast.success('Basic info saved successfully!');
+  const handleSaveBasicInfo = async () => {
+    try {
+      const result = await axios.put(`/api/users/${user.id}`, {
+        email: emailInput,
+        username: username,
+        userId: user.id
+      });
+      setIsEditingBasicInfo(false);
+      toast.success('Basic info saved successfully!');
+    } catch (e) {
+      setIsEditingBasicInfo(false);
+      toast.error(e.response.data.message);
+      console.log(e);
+    }
   };
+  
 
   const handleSaveEmailSettings = () => {
     setIsEditingEmailSettings(false);
