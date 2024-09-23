@@ -11,6 +11,7 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
   const [activeSection, setActiveSection] = useState('Basic Info');
   const [editingPost, setEditingPost] = useState(null);
   const [postContent, setPostContent] = useState('');
+  const [profilePic, setProfilePic] = useState(user?.image);
   // Edit modes for individual sections
   const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
   const [isEditingEmailSettings, setIsEditingEmailSettings] = useState(false);
@@ -21,14 +22,23 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
     setPostContent(post.content);
     setActiveSection('Posts');
   };
-
+  const deleteOld = async (id) => {
+    try {
+      await axios.post(`/api/users/${user.id}`, { id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSaveBasicInfo = async () => {
     try {
       const result = await axios.put(`/api/users/${user.id}`, {
         email: emailInput,
         username: username,
-        userId: user.id
-      });
+        userId: user.id,
+        image:profilePic
+      }); 
+    await deleteOld(profilePic);
+
       setIsEditingBasicInfo(false);
       toast.success('Basic info saved successfully!');
     } catch (e) {
@@ -48,14 +58,39 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
     setIsEditingNotifications(false);
     toast.success('Notification settings saved successfully!');
   };
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'blog_pic'); // Replace with your Cloudinary upload preset
+    formData.append('cloud_name', 'dbtis6lsu'); // Replace with your Cloudinary cloud name
 
+    try {
+      const res = await axios.post(`https://api.cloudinary.com/v1_1/dbtis6lsu/image/upload`, formData);
+      const imageUrl = res.data.secure_url;
+      setProfilePic(imageUrl); // Set the uploaded image URL to the profile pic state
+      toast.success('Profile picture updated!');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image. Please try again.');
+    }
+  };
   const renderSection = () => {
     switch (activeSection) {
       case 'Basic Info':
         return (
           <div className="settings-section card">
             <div className="profile-pic-container">
-              <img src={user?.image} alt="Profile" className="profile-pic" />
+              <img src={profilePic} alt="Profile" className="profile-pic" />
+              {isEditingBasicInfo && (
+                <>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                </>
+              )}
             </div>
             <label>
               Email
@@ -97,13 +132,13 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
                 disabled={!isEditingEmailSettings}
               />
             </label>
-            <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
+            {/* <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
               {!isEditingEmailSettings ? (
                 <button className="black_btn" onClick={() => setIsEditingEmailSettings(true)}>Edit</button>
               ) : (
                 <button className="outline_btn" onClick={handleSaveEmailSettings}>Save</button>
               )}
-            </div>
+            </div> */}
           </div>
         );
       case 'Search History':
@@ -115,13 +150,14 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Notifications':
         return (
           <div className="settings-section card">
-            <label>
+            <label style={{display:"flex"}}>
               Enable notifications
               <input
                 type="checkbox"
                 checked={notificationsEnabled}
                 onChange={() => setNotificationsEnabled(!notificationsEnabled)}
                 disabled={!isEditingNotifications}
+                style={{width:"30px",marginLeft:"100px"}}
               />
             </label>
             <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
