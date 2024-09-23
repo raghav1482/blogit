@@ -8,6 +8,28 @@ cloudinary.config({
   api_key: '779971964681745', 
   api_secret: '3PueoLmu6hvp5SjhetgdDmjMShQ' 
 });
+
+export const GET = async (req) => {
+  await connectDB();
+
+  // Extract id from the dynamic URL path
+  const id = req.url.split('/').pop(); // Assuming the id is the last segment of the URL
+  
+  console.log('User ID:', id); // Log the extracted id
+
+  try {
+    const user = await User.findById(id).select('-password'); // Find user by id
+    if (user) {
+      return new Response(JSON.stringify(user), { status: 200 }); // Return user data if found
+    } else {
+      return new Response('User not found', { status: 404 });
+    }
+  } catch (e) {
+    console.error('Error fetching user:', e);
+    return new Response('Internal Server Error', { status: 500 });
+  }
+};
+
 export const PUT = async (request) => {
     await connectDB();
     

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './settings.css';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
@@ -16,7 +16,20 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
   const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
   const [isEditingEmailSettings, setIsEditingEmailSettings] = useState(false);
   const [isEditingNotifications, setIsEditingNotifications] = useState(false);
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (user?.id) {
+          const result = await axios.get(`/api/users/${user.id}`);
+          setProfilePic(result.data?.image)
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchData();
+  }, [user?.id]);
   const handlePostEdit = (post) => {
     setEditingPost(post);
     setPostContent(post.content);
