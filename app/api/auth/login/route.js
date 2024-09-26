@@ -29,7 +29,7 @@ export const POST = async (req) => {
 
     // Successful login, return the token
     return new Response(
-      JSON.stringify({ message: 'Login successful', token }), 
+      JSON.stringify({ message: 'Login successful', token,id:user._id }), 
       { status: 200 }
     );
   } catch (error) {
