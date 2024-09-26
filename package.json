@@ -17,6 +17,7 @@
     "cloudinary": "^2.0.3",
     "firebase": "^10.13.1",
     "jodit-react": "^4.1.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.2",
     "next": "14.1.0",
     "next-auth": "^4.24.5",

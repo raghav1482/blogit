@@ -1,5 +1,6 @@
 import User from '@models/user';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { connectDB } from '@app/utils/database';
 
 export const POST = async (req) => {
@@ -19,8 +20,18 @@ export const POST = async (req) => {
       return new Response(JSON.stringify({ message: 'Incorrect password' }), { status: 400 });
     }
 
-    // Successful login
-    return new Response(JSON.stringify({ message: 'Login successful' }), { status: 200 });
+    // Generate JWT token upon successful login
+    const token = jwt.sign(
+      { userId: user._id, email: user.email }, // Payload
+      'mkblogit', // Replace with a strong secret key
+      { expiresIn: '1h' } // Token expiration
+    );
+
+    // Successful login, return the token
+    return new Response(
+      JSON.stringify({ message: 'Login successful', token }), 
+      { status: 200 }
+    );
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({ message: 'Server error' }), { status: 500 });
