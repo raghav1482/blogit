@@ -61,4 +61,6 @@ const Form = ({type,post,setPost,submitting,uploading,handleSubmit}) => {
   )
 }
 
+
+
 export default Form
