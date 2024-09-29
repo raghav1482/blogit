@@ -72,7 +72,7 @@ function Discover() {
 
     const handleScroll = useCallback(() => {
         const scrollPosition = window.innerHeight + document.documentElement.scrollTop;
-        const threshold = document.documentElement.scrollHeight * 0.8; // 80% of the total height
+        const threshold = document.documentElement.scrollHeight * 0.7; // 80% of the total height
     
         if (scrollPosition >= threshold) {
             if (page < totalPage && !loader) {
