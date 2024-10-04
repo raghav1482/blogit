@@ -45,7 +45,7 @@ To start using Prompt, follow these steps:
    - Copy `.env.example` to `.env.local`
    - Populate the necessary environment variables (e.g., database connection string, API keys)
 4. Run the development server: `npm run dev`
-5. Visit `http://localhost:3000` in your browser to access the application.
+5. Visit `https://rgblogit.vercel.app` in your browser to access the application.
 
 ## Usage
 
@@ -71,7 +71,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [https://rgblogit.vercel.app](https://rgblogit.vercel.app) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 

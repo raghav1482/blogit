@@ -12,10 +12,8 @@ cloudinary.config({
 export const GET = async (req) => {
   await connectDB();
 
-  // Extract id from the dynamic URL path
-  const id = req.url.split('/').pop(); // Assuming the id is the last segment of the URL
+  const id = req.url.split('/').pop(); 
   
-  console.log('User ID:', id); // Log the extracted id
 
   try {
     const user = await User.findById(id).select('-password'); // Find user by id

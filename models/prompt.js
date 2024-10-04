@@ -15,11 +15,9 @@ const promptSchema = new Schema({
     },
     tag:{
         type:String,
-        required:[true,'Tag is required'],
     },
     img:{
         type:String,
-        required:[true,'image is required'],
     },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
     dislikes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],

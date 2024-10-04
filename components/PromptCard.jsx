@@ -12,12 +12,15 @@ const PromptCard = ({ post = {}, handleEdit, handleDelete, handleTagClick }) => 
   const [views, setViews] = useState(null);
 
   const [imgSrc, setImgSrc] = useState(
-    post.img ? `https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/f_auto,q_auto/v1705092727/${post.img}` : '/path/to/placeholder/image.png'
+    post.img && post.img.startsWith('http')
+      ? post.img
+      : `https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${post.img}`
   );
+  
   const [isLoading, setIsLoading] = useState(true);
 
   const handleImageError = () => {
-    setImgSrc('/path/to/placeholder/image.png'); // Replace with your placeholder image path
+    setImgSrc(''); 
   };
 
   const handleImageLoad = () => {
@@ -51,7 +54,7 @@ const PromptCard = ({ post = {}, handleEdit, handleDelete, handleTagClick }) => 
         <Link href={`/post/${post._id}`}>
   {post.title === "Loading..." ? (
     <h1 style={{ fontWeight: "700", padding: "5px",width:"200px",borderRadius:"10px",height:"10px" }} className="mock">
-      &nbsp; {/* Empty content but still occupies space */}
+      &nbsp; 
     </h1>
   ) : (
     <h1 style={{ fontWeight: "700", padding: "5px" }}>

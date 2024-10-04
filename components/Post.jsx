@@ -124,13 +124,14 @@ const Postcon = ({ dat, id }) => {
       <div className="flex flex-col">
         <Toaster />
         <div className="post-con w-full flex flex-col">
-          <img
-            src={
-              dat
-                ? `https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${dat.img}`
-                : ""
-            }
-          />
+        <img
+  src={
+    dat?.img && dat.img.startsWith('http')
+      ? dat.img 
+      : dat ? `https://res.cloudinary.com/dbtis6lsu/image/upload/f_auto,q_auto/v1705092727/${dat.img}` : ''
+  }
+/>
+
           <div className="post-head">
             <h2>{dat?.title || ""}</h2>
             <span className="flex flex-row" style={{ alignItems: "center" }}>
