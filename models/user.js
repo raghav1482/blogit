@@ -36,6 +36,10 @@ const userSchema = new Schema({
     ref: 'Prompt', 
     default: [], // Initialize with an empty array
   }],
+  about:{
+    type:String,
+    default:''
+  }
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
 });

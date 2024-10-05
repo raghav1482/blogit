@@ -8,7 +8,7 @@ import Slider from "./Slider";
 import toast, { Toaster } from 'react-hot-toast';
 import Link from "next/link";
 
-const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
+const Profile2 = ({ name, posts, handleEdit, handleDelete, id }) => {
   const [previewsrc, setPreviewSource] = useState();
   const [uploading, setUploading] = useState(false);
   const [fileInput, setFileInput] = useState("");
@@ -342,7 +342,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
       {navstate === "about" && (
         <div className="profile-about" style={{ padding: "20px" }}>
           <h1 style={{ fontSize: "25px", fontWeight: "bold" }}>About</h1>
-          <p>{desc || "No description provided."}</p>
+          <p>{posts[0].creator.about || "No description provided."}</p>
         </div>
       )}
       </>

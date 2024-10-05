@@ -7,21 +7,25 @@ import axios from 'axios';
 const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
   const [emailInput, setEmail] = useState(user?.email);
   const [username, setUsername] = useState(user?.name);
+  const [about, setAbout] = useState(user?.about); // State for the about section
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [activeSection, setActiveSection] = useState('Basic Info');
   const [editingPost, setEditingPost] = useState(null);
   const [postContent, setPostContent] = useState('');
   const [profilePic, setProfilePic] = useState(user?.image);
+
   // Edit modes for individual sections
   const [isEditingBasicInfo, setIsEditingBasicInfo] = useState(false);
   const [isEditingEmailSettings, setIsEditingEmailSettings] = useState(false);
   const [isEditingNotifications, setIsEditingNotifications] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (user?.id) {
           const result = await axios.get(`/api/users/${user.id}`);
-          setProfilePic(result.data?.image)
+          setProfilePic(result.data?.image);
+          setAbout(result.data?.about); // Fetch the 'about' information from the user data
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -30,11 +34,13 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
   
     fetchData();
   }, [user?.id]);
+
   const handlePostEdit = (post) => {
     setEditingPost(post);
     setPostContent(post.content);
     setActiveSection('Posts');
   };
+
   const deleteOld = async (id) => {
     try {
       await axios.post(`/api/users/${user.id}`, { id });
@@ -42,25 +48,26 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       console.log(error);
     }
   };
+
   const handleSaveBasicInfo = async () => {
     try {
       const result = await axios.put(`/api/users/${user.id}`, {
         email: emailInput,
-        username: username,
+        username,
+        about, // Include the about field when saving
         userId: user.id,
-        image:profilePic
-      }); 
-    await deleteOld(profilePic);
+        image: profilePic,
+      });
+      await deleteOld(profilePic);
 
       setIsEditingBasicInfo(false);
       toast.success('Basic info saved successfully!');
     } catch (e) {
       setIsEditingBasicInfo(false);
-      toast.error(e.response.data.message);
+      toast.error(e.response?.data?.message || 'Failed to save basic info.');
       console.log(e);
     }
   };
-  
 
   const handleSaveEmailSettings = () => {
     setIsEditingEmailSettings(false);
@@ -71,6 +78,7 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
     setIsEditingNotifications(false);
     toast.success('Notification settings saved successfully!');
   };
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -88,6 +96,7 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       toast.error('Failed to upload image. Please try again.');
     }
   };
+
   const renderSection = () => {
     switch (activeSection) {
       case 'Basic Info':
@@ -111,7 +120,7 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
                 type="text"
                 value={emailInput}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={!isEditingBasicInfo}
+                disabled={true}
               />
             </label>
             <label>
@@ -121,6 +130,15 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={!isEditingBasicInfo}
+              />
+            </label>
+            <label>
+              About
+              <textarea
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                disabled={!isEditingBasicInfo}
+                style={{display:'block',width:'100%',borderWidth:'1px'}}
               />
             </label>
             <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
@@ -135,7 +153,6 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Email Settings':
         return (
           <div className="settings-section card">
-  
             <label>
               Email
               <input
@@ -145,13 +162,6 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
                 disabled={!isEditingEmailSettings}
               />
             </label>
-            {/* <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
-              {!isEditingEmailSettings ? (
-                <button className="black_btn" onClick={() => setIsEditingEmailSettings(true)}>Edit</button>
-              ) : (
-                <button className="outline_btn" onClick={handleSaveEmailSettings}>Save</button>
-              )}
-            </div> */}
           </div>
         );
       case 'Search History':
@@ -163,14 +173,14 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       case 'Notifications':
         return (
           <div className="settings-section card">
-            <label style={{display:"flex"}}>
+            <label style={{ display: 'flex' }}>
               Enable notifications
               <input
                 type="checkbox"
                 checked={notificationsEnabled}
                 onChange={() => setNotificationsEnabled(!notificationsEnabled)}
                 disabled={!isEditingNotifications}
-                style={{width:"30px",marginLeft:"100px"}}
+                style={{ width: '30px', marginLeft: '100px' }}
               />
             </label>
             <div style={{ display: 'flex', width: '200px', margin: 'auto', justifyContent: 'center' }}>
@@ -184,7 +194,7 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
         );
       case 'Posts':
         return (
-          <div className="settings-section" style={{overflowY:"scroll"}}>
+          <div className="settings-section" style={{ overflowY: 'scroll' }}>
             {posts && posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.id} className="post-item">
@@ -210,7 +220,6 @@ const SettingsPage = ({ posts, handleEdit, handleDelete, user }) => {
       <Toaster />
       <div className="settings-container">
         <div className="sidebar">
-          <h2></h2>
           <ul>
             <li onClick={() => setActiveSection('Basic Info')} className={activeSection === 'Basic Info' ? 'active' : ''}>Basic Info</li>
             <li onClick={() => setActiveSection('Email Settings')} className={activeSection === 'Email Settings' ? 'active' : ''}>Email Settings</li>

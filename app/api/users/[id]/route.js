@@ -29,31 +29,37 @@ export const GET = async (req) => {
 };
 
 export const PUT = async (request) => {
-    await connectDB();
-    
-    try {
-        // Extract userId from the URL (assuming the URL contains it)
+  await connectDB();
 
-        // Extract email and username from the request body
-        const { email, username,userId,image } = await request.json();
+  try {
+      const { email, username, userId, image, about } = await request.json();
 
+      
+      const user = await User.findById(userId);
+      if (!user) {
+          return NextResponse.json({ message: "User not found" }, { status: 404 });
+      }
 
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            { username,image },
-            { new: true } // Return the updated document
-        );
+     
+      const updateData = {
+          username,
+          image,
+          about: user.about ? user.about : about 
+      };
 
-        if (!updatedUser) {
-            return NextResponse.json({ message: "User not found" }, { status: 404 });
-        }
+      const updatedUser = await User.findByIdAndUpdate(
+          userId,
+          updateData,
+          { new: true } 
+      );
 
-        return NextResponse.json({ message: "User updated successfully",user:updatedUser}, { status: 200 });
-    } catch (e) {
-        console.log(e);
-        return NextResponse.json({ message: "Error updating user" }, { status: 500 });
-    }
+      return NextResponse.json({ message: "User updated successfully", user: updatedUser }, { status: 200 });
+  } catch (e) {
+      console.log(e);
+      return NextResponse.json({ message: "Error updating user" }, { status: 500 });
+  }
 };
+
 
 export const POST = async (req) => {
     try {
