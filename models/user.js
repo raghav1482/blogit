@@ -31,6 +31,11 @@ const userSchema = new Schema({
     ref: 'User', 
     default: [], // Initialize with an empty array
   }],
+  bookmarks: [{
+    type: Schema.Types.ObjectId, 
+    ref: 'Prompt', 
+    default: [], // Initialize with an empty array
+  }],
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
 });
