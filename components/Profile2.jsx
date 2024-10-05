@@ -129,7 +129,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
   }, [posts]);
 
   useEffect(() => {
-    setFollowers((Math.random() * 100).toFixed(1));
+    setFollowers(posts[0]?.creator?.followers.length);
     
     if (previewsrc) {
       setImageSrc(previewsrc); // Display the preview image when a new image is uploaded
@@ -203,7 +203,7 @@ const Profile2 = ({ name, desc, posts, handleEdit, handleDelete, id }) => {
               {name}
             </h3>
             {posts?.[0]?.creator ? (
-              <p style={{ marginInline: "10px" }}>{followers || 0}k followers</p>
+              <p style={{ marginInline: "10px" }}>{followers || 0} followers</p>
             ) : (
               <p className="mock" style={{ margin: "10px", width: "100px", height: "10px", borderRadius: "10px" }}></p>
             )}

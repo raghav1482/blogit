@@ -12,20 +12,31 @@ const userSchema = new Schema({
   },
   image: {
     type: String,
+    default: '', 
   },
   banner: {
     type: String,
+    default: '', 
   },
   password: {
-    type: String,
+    type: String, 
   },
   follows: [{
     type: Schema.Types.ObjectId, 
-    ref: 'User', // Assuming the 'follows' array contains references to other users
+    ref: 'User', // Reference to other users
+    default: [], // Initialize with an empty array
+  }],
+  followers: [{
+    type: Schema.Types.ObjectId, 
+    ref: 'User', 
+    default: [], // Initialize with an empty array
   }],
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
 });
+
+userSchema.index({ follows: 1 });
+userSchema.index({ followers: 1 });
 
 const User = models.User || model('User', userSchema);
 

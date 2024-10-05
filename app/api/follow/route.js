@@ -10,9 +10,13 @@ export async function POST(req) {
 
     // Parse request body
     const { userId, channelId } = await req.json();
+
     // Validate input
     if (!userId || !channelId) {
-      return new Response(JSON.stringify({ message: 'User ID and Channel ID are required' }), { status: 400 });
+      return new Response(
+        JSON.stringify({ message: 'User ID and Channel ID are required' }),
+        { status: 400 }
+      );
     }
 
     // Find the user in the database
@@ -21,22 +25,67 @@ export async function POST(req) {
       return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
     }
 
-    // Check if the channelId is already in the follows array
-    if (user.follows.includes(channelId)) {
-      return new Response(JSON.stringify({ message: 'Already following this channel' }), { status: 400 });
+    // Initialize 'follows' if undefined
+    if (!Array.isArray(user.follows)) {
+      user.follows = [];
     }
 
-    // Add the channelId to the follows array
+    // Find the channel in the database
+    const channel = await User.findById(channelId);
+    if (!channel) {
+      return new Response(JSON.stringify({ message: 'Channel not found' }), { status: 404 });
+    }
+
+    // Initialize 'followers' if undefined
+    if (!Array.isArray(channel.followers)) {
+      channel.followers = [];
+    }
+
+    console.log('User follows array:', user.follows);
+    console.log('Channel followers array:', channel.followers);
+
+    // Check if the user is already following the channel
+    if (user.follows.map(followId => followId.toString()).includes(channelId.toString())) {
+      // If already following, remove the channel from the user's follows array
+      user.follows = user.follows.filter(followId => followId.toString() !== channelId.toString());
+      await user.save();
+
+      // Remove the user from the channel's followers array
+      channel.followers = channel.followers.filter(followerId => followerId.toString() !== userId.toString());
+      await channel.save();
+
+      return new Response(
+        JSON.stringify({ message: 'Unfollowed successfully' }),
+        { status: 200 }
+      );
+    } 
+
+    // If not following, add the channelId to the user's follows array
     user.follows.push(channelId);
     await user.save();
 
-    return new Response(JSON.stringify({ message: 'Followed successfully' }), { status: 200 });
+    // Add the userId to the channel's followers array
+    if (!channel.followers.map(followerId => followerId.toString()).includes(userId.toString())) {
+      channel.followers.push(userId);
+      await channel.save();
+    }
 
+    return new Response(
+      JSON.stringify({ message: 'Followed successfully' }),
+      { status: 200 }
+    );
+    
   } catch (error) {
-    console.error('Error handling follow request:', error);
-    return new Response(JSON.stringify({ message: 'Internal Server Error' }), { status: 500 });
+    console.error('Error handling follow/unfollow request:', error);
+    return new Response(
+      JSON.stringify({ message: 'Internal Server Error' }),
+      { status: 500 }
+    );
   }
 }
+
+
+
 
 export async function GET(req) {
     try {
