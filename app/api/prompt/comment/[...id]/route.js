@@ -8,6 +8,7 @@ export const POST = async(req)=>{
         comment,
         userid,
     }=await req.json();
+    console.log(post,comment,userid);
     try {
         await connectDB();
         const newComm = new CommentDat({

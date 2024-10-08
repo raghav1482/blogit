@@ -347,7 +347,7 @@ const Profile2 = ({ name, posts, handleEdit, handleDelete, id }) => {
       )}
       </>
       }
-      {loadingTimeout && !posts?.length && ( // Show reload button if data didn't load within 10 seconds
+      {loadingTimeout && !posts?.length && ( 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           <button className="reload-button" onClick={handleReload}>
           <i className='fas fa-redo-alt'></i>
