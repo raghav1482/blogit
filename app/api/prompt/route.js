@@ -21,10 +21,7 @@ export const GET = async (req) => {
 
         // Fetch prompts with pagination
         const prompts = await Prompt.find({})
-            .populate({
-        path: 'creator',
-        select: '-password'
-    })
+            .populate('creator')
             .skip(skip)
             .limit(limit);
 
