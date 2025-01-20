@@ -5,7 +5,10 @@ export const GET = async (request, { params }) => {
     try {
         await connectDB()
 
-        const prompt = await Prompt.findById(params.id).populate("creator")
+        const prompt = await Prompt.findById(params.id).populate({
+            path: 'creator',
+            select: '-password'
+        })
         if (!prompt) return new Response("Prompt Not Found", { status: 404 });
 
         return new Response(JSON.stringify(prompt), { status: 200 })

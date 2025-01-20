@@ -29,7 +29,10 @@ export const GET = async (request, { params }) => {
     try {
         await connectDB();
         console.log(params);
-        const comm = await CommentDat.find({post:params.id}).populate("userid");
+        const comm = await CommentDat.find({post:params.id}).populate({
+                path: 'userid',
+                select: '-password' // Exclude the password field
+            });
         if (!comm) return new Response("Comment Not Found", { status: 404 });
 
         return new Response(JSON.stringify(comm), { status: 200 });
